@@ -10,3 +10,15 @@
 '''
 
 config = 'switchport trunk allowed vlan 1,3,10,20,30,100'
+
+In [1]: CONFIG = 'switchport trunk allowed vlan 1,3,10,20,30,100'
+
+In [3]: commands = CONFIG.split()
+
+In [5]: print(commands)
+['switchport', 'trunk', 'allowed', 'vlan', '1,3,10,20,30,100']
+
+In [7]: vlans = commands[-1].split(',')
+
+In [8]: print(vlans)
+['1', '3', '10', '20', '30', '100']
