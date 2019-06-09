@@ -9,4 +9,13 @@
 
 '''
 
-mac = 'AAAA:BBBB:CCCC'
+MAC = 'AAAA:BBBB:CCCC'
+
+In [77]: MAC = 'AAAA:BBBB:CCCC'
+
+In [78]: MAC = MAC.replace(':','')
+
+In [108]: MAC = bin(int(MAC,16))
+
+In [109]: print(MAC)
+0b101010101010101010111011101110111100110011001100
