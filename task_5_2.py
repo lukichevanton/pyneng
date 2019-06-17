@@ -1,80 +1,46 @@
 #!/usr/bin/env python3
 
+ip = input('введите IP-сети в формате: 10.1.1.0/24: ')
 
-london_co = {
-    'r1': {
-        'location': '21 New Globe Walk',
-        'vendor': 'Cisco',
-        'model': '4451',
-        'ios': '15.4',
-        'ip': '10.255.0.1'
-    },
-    'r2': {
-        'location': '21 New Globe Walk',
-        'vendor': 'Cisco',
-        'model': '4451',
-        'ios': '15.4',
-        'ip': '10.255.0.2'
-    },
-    'sw1': {
-        'location': '21 New Globe Walk',
-        'vendor': 'Cisco',
-        'model': '3850',
-        'ios': '3.6.XE',
-        'ip': '10.255.0.101',
-        'vlans': '10,20,30',
-        'routing': True
-    }
-}
+ip,mask = (ip.split('/'))
+ip1,ip2,ip3,ip4 = (ip.split('.'))
+
+print('\n' + '-' * 30)
+print('Network:')
+print('{:<10} {:<10} {:<10} {:<10}'.format(ip1,ip2,ip3,ip4))
+print('{:<010} {:<010} {:<010} {:<010}'.format('{:b}'.format(int(ip1)) , '{:b}'.format(int(ip2)) , '{:b}'.format(int(ip3)) , '{:b}'.format(int(ip4))))
+
+print('\n')
+print('Mask:')
+
+mask_bin = ('1' * int(mask))
+whilelen(mask_bin) < 32:
+ mask_bin = (mask_bin + '0')
+m1,m2,m3,m4 = mask_bin[0:8],mask_bin[8:16],mask_bin[16:24],mask_bin[24:32]
+
+print('{:<10} {:<10} {:<10} {:<10}'.format((int(m1,2)) , (int(m2,2)) , (int(m3,2)) , (int(m4,2))))
+print('{:<010} {:<010} {:<010} {:<010}'.format(m1,m2,m3,m4))
 
 """"""
 
-#name = input("Enter device name: ")
+from sys import argv
+ip = arg[1:]
 
-#print(london_co[name])
+ip,mask = (ip.split('/'))
+ip1,ip2,ip3,ip4 = (ip.split('.'))
 
-""""""
+print('\n' + '-' * 30)
+print('Network:')
+print('{:<10} {:<10} {:<10} {:<10}'.format(ip1,ip2,ip3,ip4))
+print('{:<010} {:<010} {:<010} {:<010}'.format('{:b}'.format(int(ip1)) , '{:b}'.format(int(ip2)) , '{:b}'.format(int(ip3)) , '{:b}'.format(int(ip4))))
 
-#name = input("Enter device name: ")
+print('\n')
+print('Mask:')
 
-#parameter = input("Enter parameter name: ")
+mask_bin = ('1' * int(mask))
+whilelen(mask_bin) < 32:
+ mask_bin = (mask_bin + '0')
+m1,m2,m3,m4 = mask_bin[0:8],mask_bin[8:16],mask_bin[16:24],mask_bin[24:32]
 
-#print(london_co[name][parameter])
-
-""""""
-
-#name = input("Enter device name: ")
-
-#list = list(london_co[name].keys())
-#list1 = ','.join(list)
-
-#print("Enter parameter name", '(' ,list1, ")" ":", end=" ")
-#parameter = input()
-
-#print(london_co[name][parameter])
-
-""""""
-
-#name = input("Enter device name: ")
-
-#list = list(london_co[name].keys())
-#list1 = ','.join(list)
-
-#print("Enter parameter name", '(' ,list1, ")", ":", end=" ")
-#parameter = input()
-
-#print(london_co[name].get(parameter, "There isn't such parameter"))
-
-
-""""""
-
-name = input("Enter device name: ")
-
-list = list(london_co[name].keys())
-list1 = ','.join(list)
-
-print("Enter parameter name", '(' ,list1, ")", ":", end=" ")
-parameter = input()
-
-print(london_co[name].get(parameter.lower(), "There isn't such parameter"))
-
+print('{:<10} {:<10} {:<10} {:<10}'.format((int(m1,2)) , (int(m2,2)) , (int(m3,2)) , (int(m4,2))))
+print('{:<010} {:<010} {:<010} {:<010}'.format(m1,m2,m3,m4))
