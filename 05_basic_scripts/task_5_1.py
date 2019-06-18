@@ -21,6 +21,8 @@ $ python task_5_1.py
 То есть эту задачу можно решить без использования условия if.
 '''
 
+#!/usr/bin/env python3
+
 london_co = {
     'r1': {
         'location': '21 New Globe Walk',
@@ -46,8 +48,6 @@ london_co = {
         'routing': True
     }
 }
-
-#!/usr/bin/env python3
 
 name = input("Enter device name: ")
 
