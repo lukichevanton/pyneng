@@ -66,6 +66,5 @@ vlans = input("Enter vlan(s): ")
 
 print('interface {}'.format(type))
 
-
 print('\n'.join(access_template).format(vlans))
 print('\n'.join(trunk_template).format(vlans))
