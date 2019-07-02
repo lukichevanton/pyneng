@@ -156,7 +156,7 @@ while True:
         print("Неправильный IP-адрес")        
     else:
         print("unused")
-    """
+"""
 
 """2-ой вариант
 while True:
@@ -234,7 +234,6 @@ for intf, vlan in access.items():
         else:
             print(' {}'.format(command))
 """
-
 
 trunk_template = [
     'switchport trunk encapsulation dot1q', 'switchport mode trunk',
