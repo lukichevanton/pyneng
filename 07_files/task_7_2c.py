@@ -16,8 +16,6 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
 
-ignore = ['duplex', 'alias', 'Current configuration']
-
 #!/usr/bin/env python3
 
 from sys import argv

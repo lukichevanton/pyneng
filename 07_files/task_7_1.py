@@ -18,7 +18,6 @@ Outbound Interface:    FastEthernet0/0
 #!/usr/bin/env python3
 
 """1-ый вариант через print"""
-
 f = open('ospf.txt')
 RESULT = f.read().replace('O','OSPF').replace('[',' ').replace(']',' ').replace(',',' ').replace('        ',' ').replace('  ',' ').split('\n')
 
@@ -44,7 +43,6 @@ print()
 """etc"""
 
 """2-ой вариант через if"""
-
 f = open('ospf.txt')
 RESULT = f.read().replace('O','OSPF').replace('[',' ').replace(']',' ').replace(',',' ').replace('        ',' ').replace('  ',' ').split('\n')
 
