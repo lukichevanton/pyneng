@@ -11,16 +11,14 @@ Outbound Interface:    FastEthernet0/0
 
 Ограничение: Все задания надо выполнять используя только пройденные темы."""
 
-"""
+"""1-ый вариант через print
 f = open('ospf.txt')
 RESULT = f.read().replace('O','OSPF').replace('[',' ').replace(']',' ').replace(',',' ').replace('        ',' ').replace('  ',' ').split('\n')
 
 a = RESULT[0].split(' ')
 b = RESULT[1].split(' ')
 c = RESULT[2].split(' ')
-"""
 
-"""1-ый вариант через print
 #print('{:20} {:8}'.format('Protocol: ', a[0]))
 #print('{:20} {:8}'.format('Prefix: ', a[1]))
 #print('{:20} {:8}'.format('AD/Metric: ', a[2]))
@@ -38,6 +36,14 @@ c = RESULT[2].split(' ')
 etc"""
 
 """2-ой вариант через if
+
+f = open('ospf.txt')
+RESULT = f.read().replace('O','OSPF').replace('[',' ').replace(']',' ').replace(',',' ').replace('        ',' ').replace('  ',' ').split('\n')
+
+a = RESULT[0].split(' ')
+b = RESULT[1].split(' ')
+c = RESULT[2].split(' ')
+
 ospf = [
     'Protocol:', 'Prefix:', 'AD/Metric:', 'Next-Hop:', 'Last update:', 'Outbound Interface:'
 ]
@@ -110,11 +116,11 @@ etc"""
 Ограничение: Все задания надо выполнять используя только пройденные темы."""
 
 """
-#from sys import argv
-#config = argv[1]
+from sys import argv
 
-f = open('config_sw1.txt')
-#f = open('config')
+src = argv[1]
+
+f = open(' {}'.format(src))
 RESULT = f.read().split('\n')
 
 for command in RESULT:
@@ -123,6 +129,7 @@ for command in RESULT:
     else:
         print(' {}'.format(command))
 """
+
 
 """Задание 7.2a
 
@@ -134,13 +141,11 @@ for command in RESULT:
 
 ignore = ['duplex', 'alias', 'Current configuration']"""
 
-"""1-ый вариант"""
+"""1-ый вариант
 f = open('config_sw1.txt')
-#f = open('config')
 RESULT = f.read().split('\n')
 
 ignore = ['duplex', 'alias', 'Current configuration']
-#ignore[0] = ' duplex'
 
 for command in RESULT:
     if command.startswith('!'):
@@ -150,6 +155,7 @@ for command in RESULT:
                 break
     else:
         print(' {}'.format(command))
+"""
 
 """2-ой вариант
 ignore = ['duplex', 'alias', 'Current configuration']
@@ -184,6 +190,7 @@ for line in current_list:
     print(line)
 """
 
+
 """Задание 7.2b
 
 Дополнить скрипт из задания 7.2a: вместо вывода на стандартный поток вывода, скрипт должен записать полученные строки в файл config_sw1_cleared.txt
@@ -192,24 +199,79 @@ for line in current_list:
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
-ignore = ['duplex', 'alias', 'Current configuration']
-"""
+ignore = ['duplex', 'alias', 'Current configuration']"""
 
+"""
 f = open('config_sw1.txt')
-#f = open('config')
 RESULT = f.read().split('\n')
 
 ignore = ['duplex', 'alias', 'Current configuration']
-#ignore[0] = ' duplex'
 
 config_sw1_cleared = []
+config_sw1_cleared_txt = []
 
 for command in RESULT:
     for item in ignore:
-            if item in command:
-                break
+        if item in command:
+            break
     else:
         print(' {}'.format(command))
-    config_sw1_cleared.append(command)
+        config_sw1_cleared.append(command)
 
-print(config_sw1_cleared)
+k = open('config_sw1_cleared.txt', 'w')
+
+for line in config_sw1_cleared:
+    config_sw1_cleared_txt.append(line + '\n')
+
+k.writelines(config_sw1_cleared_txt)
+"""
+
+
+"""Задание 7.2c
+
+Переделать скрипт из задания 7.2b: передавать как аргументы скрипту:
+
+    имя исходного файла конфигурации
+    имя итогового файла конфигурации
+
+Внутри, скрипт должен отфильтровать те строки, в исходном файле конфигурации, в которых содержатся слова из списка ignore. И записать остальные строки в итоговый файл.
+
+Проверить работу скрипта на примере файла config_sw1.txt.
+
+Ограничение: Все задания надо выполнять используя только пройденные темы.
+
+ignore = ['duplex', 'alias', 'Current configuration']"""
+
+"""
+#from sys import argv
+
+#src = argv[1]
+#dst = argv[2]
+
+#f = open(' {}'.format(src))
+
+f = open('config_sw1.txt')
+RESULT = f.read().split('\n')
+
+ignore = ['duplex', 'alias', 'Current configuration']
+
+config_sw1_cleared = []
+config_sw1_cleared_txt = []
+
+for command in RESULT:
+    for item in ignore:
+        if item in command:
+            break
+    else:
+        print(' {}'.format(command))
+        config_sw1_cleared.append(command)
+
+#k = open(' {}'.format(dst), 'w')
+k = open('config_sw1_cleared.txt')
+
+for line in config_sw1_cleared:
+    config_sw1_cleared_txt.append(line + '\n')
+
+k.writelines(config_sw1_cleared_txt)
+"""
+
