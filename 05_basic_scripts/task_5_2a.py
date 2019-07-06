@@ -31,5 +31,9 @@ Mask:
 
 '''
 
+<<<<<<< HEAD
 #!/usr/bin/env python3
+=======
+"""Not completed"""
+>>>>>>> 788784e5db9eb72a735029d66403349cce8615b2
 
