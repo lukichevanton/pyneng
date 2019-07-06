@@ -22,4 +22,5 @@ trunk_template = [
     'switchport trunk allowed vlan {}'
 ]
 
+
 """Not completed"""
