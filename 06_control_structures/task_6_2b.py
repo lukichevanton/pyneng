@@ -40,7 +40,6 @@ while True:
     else:
         print("unused")
 
-
 """2-ой вариант"""
 while True:
     try:
