@@ -12,3 +12,18 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
+
+#!/usr/bin/env python3
+
+from sys import argv
+
+src = argv[1]
+
+f = open(' {}'.format(src))
+RESULT = f.read().split('\n')
+
+for command in RESULT:
+    if command.startswith('!'):
+        continue
+    else:
+        print(' {}'.format(command))
