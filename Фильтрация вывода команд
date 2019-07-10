@@ -1,0 +1,16 @@
+Статистика по неактивным портам начиная с 4 недель:
+show int | i proto.*notconnect|proto.*administratively down|Last in.* [4-9]w|Last in.* [0-9][0-9]w|[0-9]y|Last in.*output [0-9][0-9]w|[0-9]y|disabled|Last input never, output never, output hang never
+
+Считаются только строки такого вида:
+FastEthernet0/32 is down, line protocol is down (notconnect)
+  Last input 16w6d, output 16w6d, output hang never
+
+Третья строчка не считается, так как output 00:00:01 не соответствует задаче и поэтому не показывается строка FastEthernet, третья строка от другого интерфейса:
+FastEthernet0/34 is down, line protocol is down (notconnect)
+  Last input never, output 24w2d, output hang never
+  Last input 24w2d, output 00:00:01, output hang never - это от др интерфейса
+  
+ -------------------------------------------------------------------------
+ 
+ Поиск телефонов по серийным номерам:
+ sh lldp neighbors detail | i IP|--|Model| - в конце нужн одобавить разыскиваемый серийный номер
