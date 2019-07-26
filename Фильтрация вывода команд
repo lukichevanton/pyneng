@@ -13,4 +13,4 @@ FastEthernet0/34 is down, line protocol is down (notconnect)
  -------------------------------------------------------------------------
  
  Поиск телефонов по серийным номерам:
- sh lldp neighbors detail | i IP|--|Model| - в конце нужн одобавить разыскиваемый серийный номер
+ sh lldp neighbors detail | i Chassis id|Model|11WZ06057909 - в конце нужн одобавить разыскиваемый серийный номер
