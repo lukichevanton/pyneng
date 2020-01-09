@@ -16,18 +16,23 @@ FastEthernet0/34 is down, line protocol is down (notconnect)
  sh lldp neighbors detail | i Chassis id|Model|11WZ06057909 - в конце нужн одобавить разыскиваемый серийный номер
  
  -------------------------------------------------------------------------
+ 
+#spanning tree etherchannel guard misconfig - If the switch detects a misconfiguration on the other device, 
+                                              EtherChannel guard places the switch interfaces in the error-disabled state, 
+                                              and displays an error message.
 
 Проверка настройки Etherchennel и ошибки на портах для Catalyst:
+sh etherchannel summary | i D|I|w|s|r|M|u|H
+sh etherchannel detail | i Group|Ag-Not-Inuse|down|SP|reason
+sh lacp counters | e 0
+sh interfaces counters errors | i Po
+sh interfaces | i Port|error|runts
 sh interfaces status | i notconnect|err
 sh ip interface brief | i Port
-sh etherchannel summary | i D
-sh etherchannel detail | i Group|Ag-Not-Inuse|down|SP|reason
-sh interfaces counters errors | i Po
-sh interfaces | i Giga|Fast|Ether|Port|error|runts
 
 Проверка настройки Etherchennel и ошибки на портах для Nexus:
-sh interface status | i notconnec|err
-sh port-channel summary | i D
+sh port-channel summary | i D|I|w|s|r|M|u|H
 sh interface counters errors | i Po
-sh interface | i Giga|Fast|Port|Ether|error|runts
+sh interface | i Port|error|runts
+sh interface status | i notconnec|err
 
