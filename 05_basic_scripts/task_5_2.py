@@ -44,3 +44,4 @@ print('{:<10} {:<10} {:<10} {:<10}'.format((int(m1,2)) , (int(m2,2)) , (int(m3,2
 print('{:<010} {:<010} {:<010} {:<010}'.format(m1,m2,m3,m4))
 
 """Not completed"""
+
