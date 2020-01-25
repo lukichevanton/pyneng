@@ -22,18 +22,18 @@ Mask:
 
 #!/usr/bin/env python3
 
-ip = input('введите IP-сети в формате: 10.1.1.0/24: ')
+format = input('Введите IP-сеть в формате (10.1.1.0/24):  ')
 
-ip,mask = (ip.split('/'))
-ip1,ip2,ip3,ip4 = (ip.split('.'))
+ip, mask = format.split('/')
 
-print('\n' + '-' * 30)
 print('Network:')
-print('{:<10} {:<10} {:<10} {:<10}'.format(ip1,ip2,ip3,ip4))
-print('{:<010} {:<010} {:<010} {:<010}'.format('{:b}'.format(int(ip1)) , '{:b}'.format(int(ip2)) , '{:b}'.format(int(ip3)) , '{:b}'.format(int(ip4))))
-
+print("{:8} {:8} {:8} {:8}".format(ip.split('.')[0],ip.split('.')[1],ip.split('.')[2],ip.split('.')[3]))
+print("{:08b} {:08b} {:08b} {:08b}".format(int(ip.split('.')[0]),int(ip.split('.')[1]),int(ip.split('.')[2]),int(ip.split('.')[3])))
 print('\n')
-print('Mask:')
+print('Mask')
+print('/',mask)
+
+#Далее непонятно как вычисляется:
 
 mask_bin = ('1' * int(mask))
 whilelen(mask_bin) < 32:
