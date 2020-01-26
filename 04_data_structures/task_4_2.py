@@ -8,6 +8,8 @@
 
 '''
 
+#!/usr/bin/env python3
+
 mac = 'AAAA:BBBB:CCCC'
 
 mac = mac.replace(':','.')
