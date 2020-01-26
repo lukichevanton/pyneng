@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 london_co = {
     'r1': {
         'location': '21 New Globe Walk',
