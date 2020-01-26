@@ -11,6 +11,8 @@
 
 '''
 
+#!/usr/bin/env python3
+
 command1 = 'switchport trunk allowed vlan 1,2,3,5,8'
 command2 = 'switchport trunk allowed vlan 1,3,8,9'
 
