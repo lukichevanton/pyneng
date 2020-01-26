@@ -13,6 +13,8 @@ $ python task_5_1d.py
 То есть эту задачу можно решить без использования условия if.
 '''
 
+#!/usr/bin/env python3
+
 london_co = {
     'r1': {
         'location': '21 New Globe Walk',
