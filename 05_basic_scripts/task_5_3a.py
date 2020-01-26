@@ -22,6 +22,7 @@ trunk_template = [
     'switchport trunk allowed vlan {}'
 ]
 
+#!/usr/bin/env python3
 
 mode = input('Введите режим работы интерфейса (access/trunk): ')
 inter = input('Введите тип и номер интерфейса (Fa0/1): ')
