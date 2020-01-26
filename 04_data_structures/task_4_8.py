@@ -18,6 +18,8 @@
 
 '''
 
+#!/usr/bin/env python3
+
 ip = '192.168.3.1'
 
 print("{:8} {:8} {:8} {:8}".format(ip.split('.')[0],ip.split('.')[1],ip.split('.')[2],ip.split('.')[3]))
