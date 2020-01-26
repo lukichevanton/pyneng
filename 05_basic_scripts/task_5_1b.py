@@ -40,3 +40,8 @@ london_co = {
         'routing': True
     }
 }
+
+Задание 5.1b
+dev = input('Введите имя устройства: ')
+param = input('Введите имя параметра ({}): '.format(','.join(list(london_co[dev].keys()))))
+print(london_co[dev][param])
