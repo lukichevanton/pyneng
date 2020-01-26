@@ -9,6 +9,8 @@
 
 '''
 
+#!/usr/bin/env python3
+
 mac = 'AAAA:BBBB:CCCC'
 
 mac = bin(int((mac.replace(':','')), 16))
