@@ -76,4 +76,4 @@ mask = masks[mask]
 mask1,mask2,mask3,mask4 = mask.split('.')
 
 print("{:8} {:8} {:8} {:8}".format(mask1,mask2,mask3,mask4))
-print("{:08b} {:08b} {:08b} {:08b}".format(int(mask.split('.')[0]),int(mask.split('.')[1]),int(mask.split('.')[2]),int(mask.split('.')[3])))
+print("{:08b} {:08b} {:08b} {:08b}".format(int(mask1),int(mask2),int(mask3),int(mask4)))
