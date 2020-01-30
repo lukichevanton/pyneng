@@ -13,6 +13,7 @@
 #!/usr/bin/env python3
 
 from sys import argv
+
 ip, mask = arg[1:]
 
 ip,mask = (ip.split('/'))
