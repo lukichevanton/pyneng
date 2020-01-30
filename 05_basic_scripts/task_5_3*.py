@@ -41,4 +41,3 @@ template = {'access' : access_template, 'trunk' : trunk_template}
 
 print('interface {}'.format(inter))
 print('\n'.join(template[mode]).format(vlan))
-
