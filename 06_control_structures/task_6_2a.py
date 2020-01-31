@@ -18,24 +18,20 @@
 #!/usr/bin/env python3
 
 try:
-   ip = input('Введите IP-сети в формате 1.0.0.255: ')
-   ip1,ip2,ip3,ip4 = (ip.split('.'))
+   format = input('Введите IP-адреса в формате 10.0.1.1: ')
+   ip1,ip2,ip3,ip4 = format.split('.')
 except (ValueError, TypeError):
     print("Неправильный IP-адрес")
 else:  
-    ip1 = int(ip1)
-    ip2 = int(ip2)
-    ip3 = int(ip3)
-    ip4 = int(ip4)
-    if ip1 <= 223 and ip1 >= 1 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
-        print ("unicast")
-    elif ip1 >= 224 and ip1 <= 239 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
-        print("multicast")
-    elif ip == "255.255.255.255":
-        print("local broadcast")
-    elif ip == "0.0.0.0":
-        print("unassigned")
-    elif ip1 >= 256 or ip2 >= 256 or ip3 >= 256 or ip4 >= 256:
+    if int(ip1) >= 1 and int(ip1) <= 223 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
+       print('unicast')
+    elif int(ip1) >= 224 and int(ip1) <= 239 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
+       print('multicast')
+    elif format == "255.255.255.255":
+       print("local broadcast")
+    elif format == "0.0.0.0":
+       print("unassigned")
+    elif int(ip1) >= 256 or int(ip2) >= 256 or int(ip3) >= 256 or int(ip4) >= 256:
         print("Неправильный IP-адрес")
     else:
-        print("unused")
+       print('unused')
