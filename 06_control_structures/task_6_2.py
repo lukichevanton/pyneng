@@ -18,42 +18,34 @@
 #!/usr/bin/env python3
 
 """1-ый вариант"""
-ip = input('введите IP-сети в формате 10.0.1.1: ')
-ip1,ip2,ip3,ip4 = (ip.split('.'))
-ip1 = int(ip1)
-ip2 = int(ip2)
-ip3 = int(ip3)
-ip4 = int(ip4)
+format = input('Введите IP-адреса в формате 10.0.1.1: ')
+ip1,ip2,ip3,ip4 = format.split('.')
 
-if ip1 <= 223 and ip1 >= 1:
-    print ("unicast")
-elif ip1 >= 224 and ip1 <= 239:
-    print("multicast")
-elif ip == "255.255.255.255":
+if int(ip1) >= 1 and int(ip1) <= 223:
+    print('unicast')
+elif int(ip1) >= 224 and int(ip1) <= 239:
+    print('multicast')
+elif format == "255.255.255.255":
     print("local broadcast")
-elif ip == "0.0.0.0":
+elif format == "0.0.0.0":
     print("unassigned")
 else:
-    print("unused")
+    print('unused')
 
 """2-ой вариант"""
 try:
-   ip = input('Введите IP-сети в формате 1.0.0.255: ')
-   ip1,ip2,ip3,ip4 = (ip.split('.'))
+   format = input('Введите IP-адреса в формате 10.0.1.1: ')
+   ip1,ip2,ip3,ip4 = format.split('.')
 except (ValueError, TypeError):
     print("unused")
 else:  
-    ip1 = int(ip1)
-    ip2 = int(ip2)
-    ip3 = int(ip3)
-    ip4 = int(ip4)
-    if ip1 <= 223 and ip1 >= 1 :
-        print ("unicast")
-    elif ip1 >= 224 and ip1 <= 239:
-        print("multicast")
-    elif ip == "255.255.255.255":
-        print("local broadcast")
-    elif ip == "0.0.0.0":
-        print("unassigned")
+    if int(ip1) >= 1 and int(ip1) <= 223:
+       print('unicast')
+    elif int(ip1) >= 224 and int(ip1) <= 239:
+       print('multicast')
+    elif format == "255.255.255.255":
+       print("local broadcast")
+    elif format == "0.0.0.0":
+       print("unassigned")
     else:
-        print("unused")
+       print('unused')
