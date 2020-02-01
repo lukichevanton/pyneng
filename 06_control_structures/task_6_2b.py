@@ -12,6 +12,7 @@
 
 #!/usr/bin/env python3
 
+"""1ый вариант"""
 while True:
     try:
        format = input('Введите IP-адреса в формате 10.0.1.1: ')
@@ -34,3 +35,33 @@ while True:
           print("Неправильный IP-адрес")
        else:
           print('unused') 
+            
+"""2ой вариант"""            
+while True:
+    ip_address = input('Введите IP-адреса в формате 10.0.1.1: ')
+    ip_list = ip_address.split('.')
+    try:
+        ip = [int(a) for a in ip_address.split('.')]
+    except ValueError:
+        print('Incorrect IPv4 address')
+        continue
+    else:
+        check_range = [byte for byte in ip if 0 <= byte <= 255]
+        if not len(check_range) == 4:
+            print('Неправильный IP-адрес')
+            continue
+        elif ip[0] >= 1 and ip[0] <= 223:
+            print('unicast')
+            break
+        elif ip[0] >= 223 and ip[0] <= 239:
+            print('multicast')
+            break
+        elif ip_address == '255.255.255.255':
+            print(('ip {} local broadcast').format(ip_address))
+            break
+        elif ip_address == '0.0.0.0':
+            print(('ip {} unassigned').format(ip_address))
+            break
+        else:
+            print('unused')
+            break
