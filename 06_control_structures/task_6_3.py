@@ -59,20 +59,12 @@ trunk = {
         '0/1': ['add', '10', '20'],#switchport trunk allowed vlan add
         '0/2': ['only', '11', '30'],#switchport trunk allowed vlan
         '0/4': ['del', '17']#switchport trunk allowed vlan remove
-    }
+}
 
 for intf, vlan in trunk.items():
     print('interface FastEthernet' + intf)
     for command in trunk_template:
-        if command.endswith('vlan'):
-            print(' {} {} {}'.format(command, vlan[0].replace('only','').replace('del','remove '), ','.join(vlan[1::])))
-        else:
-            print(' {}'.format(command))
-
-	for intf, vlan in trunk.items():
-    print('interface FastEthernet' + intf)
-    for command in trunk_template:
         if command.endswith('allowed vlan'):
-            print(' {} {}'.format(command, (' '.join(vlan)).replace('del','remove').replace('only','')))
+            print(' {} {} {}'.format(command, vlan[0].replace('del','remove').replace('only',''), (',').join(vlan[1:])))
         else:
             print(' {}'.format(command))
