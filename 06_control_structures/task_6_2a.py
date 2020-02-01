@@ -20,7 +20,7 @@
 try:
    format = input('Введите IP-адреса в формате 10.0.1.1: ')
    ip1,ip2,ip3,ip4 = format.split('.')
-except (ValueError, TypeError):
+except (ValueError, TypeError, NameError):
     print("Неправильный IP-адрес")
 else:  
     if int(ip1) >= 1 and int(ip1) <= 223 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
