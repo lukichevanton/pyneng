@@ -19,7 +19,7 @@ from sys import argv
 
 src = argv[1]
         
-f = open(src)#или f = open(' {}'.format(src))
+f = open(src)
 
 for line in f.read().split('\n'):
     if line.startswith('!'):
