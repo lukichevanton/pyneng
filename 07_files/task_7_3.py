@@ -18,6 +18,8 @@
 
 '''
 
+#!/usr/bin/env python3
+
 f = open('CAM_table.txt')
 
 for line in f.read().split('\n'):
