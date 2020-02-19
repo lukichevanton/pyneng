@@ -15,6 +15,8 @@
 Проверить работу функции на примере словаря access_config, с генерацией конфигурации port-security и без.
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
+    
+#!/usr/bin/env python3
 
 access_mode_template = [
     'switchport mode access', 'switchport access vlan',
