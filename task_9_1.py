@@ -51,9 +51,9 @@ def generate_access_config(intf_vlan_mapping, access_template):
         template.append('interface ' + intf)
         for line in access_mode_template:
             if line.endswith('access vlan'):
-                template.append('{} {}'.format(line, vlan)) 
+                template.append(f'{line} {vlan}')
             else:
-                template.append('{}'.format(line))         
+                template.append(f'{line}')         
     print(template)
   
 generate_access_config(access_config,access_mode_template)
