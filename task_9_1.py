@@ -55,5 +55,7 @@ def generate_access_config(intf_vlan_mapping, access_template):
             else:
                 template.append(f'{line}')         
     print(template)
-  
+    return(template)
 generate_access_config(access_config,access_mode_template)
+
+['interface FastEthernet0/12', 'switchport mode access', 'switchport access vlan 10', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'interface FastEthernet0/14', 'switchport modeaccess', 'switchport access vlan 11', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'interface FastEthernet0/16', 'switchport mode access', 'switchport access vlan 17', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable']
