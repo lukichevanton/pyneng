@@ -37,7 +37,7 @@ def generate_trunk_config(intf_vlan_mapping, trunk_template):
                 template[intf].append(f'{line} {vlan}')          
             else:
                 template[intf].append(line)                             
-    print(template)  
-    
+    print(template)      
 generate_trunk_config(trunk_config,trunk_mode_template)
 
+{'FastEthernet0/1': ['switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 10,20,30'], 'FastEthernet0/2': ['switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 11,30'], 'FastEthernet0/4': ['switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 17']}
