@@ -37,3 +37,6 @@ def get_int_vlan_map(config_filename):
     print(result)
     print(result2)
 get_int_vlan_map('config_sw1.txt')
+
+{'FastEthernet0/0': '10', 'FastEthernet0/2': '20', 'FastEthernet1/0': '20', 'FastEthernet1/1': '30'}
+{'FastEthernet0/1': '100,200', 'FastEthernet0/3': '100,300,400,500,600','FastEthernet1/2': '400,500,600'}
