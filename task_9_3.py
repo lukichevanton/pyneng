@@ -36,6 +36,8 @@ def get_int_vlan_map(config_filename):
                 result2[interface] = trunk
     print(result)
     print(result2)
+    return(result)
+    return(result2)
 get_int_vlan_map('config_sw1.txt')
 
 {'FastEthernet0/0': '10', 'FastEthernet0/2': '20', 'FastEthernet1/0': '20', 'FastEthernet1/1': '30'}
