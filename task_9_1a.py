@@ -48,7 +48,8 @@ def generate_access_config(intf_vlan_mapping, access_template,psecurity=None):#�
                 template.append(f'{line}')
         if psecurity:
             template.extend(psecurity)#если есть аргумент для параметра psecurity, то объеденяет список psecurity со списком template                      
-    print(template)  
+    print(template)
+    return(template)
 generate_access_config(access_config,access_mode_template,port_security_template)
 #если есть аргумент - port_security_template, то используется список port_security_template
 
