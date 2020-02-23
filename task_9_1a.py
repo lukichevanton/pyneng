@@ -48,7 +48,8 @@ def generate_access_config(intf_vlan_mapping, access_template,psecurity=None):#�
                 template.append(f'{line}')
         if psecurity:
             template.extend(psecurity)#если есть аргумент для параметра psecurity, то объеденяет список psecurity со списком template                      
-    print(template)
-    
+    print(template)  
 generate_access_config(access_config,access_mode_template,port_security_template)
 #если есть аргумент - port_security_template, то используется список port_security_template
+
+['interface FastEthernet0/12', 'switchport mode access', 'switchport access vlan 10', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'switchport port-security maximum 2', 'switchport port-security violation restrict', 'switchport port-security', 'interface FastEthernet0/14', 'switchport mode access', 'switchport access vlan11', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'switchport port-security maximum 2', 'switchport port-security violation restrict', 'switchport port-security', 'interface FastEthernet0/16', 'switchport mode access', 'switchport access vlan 17', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'switchport port-security maximum 2', 'switchport port-security violation restrict', 'switchport port-security']
