@@ -34,17 +34,6 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 '''
 
-trunk_mode_template = [
-    'switchport mode trunk', 'switchport trunk native vlan 999',
-    'switchport trunk allowed vlan'
-]
-
-trunk_config = {
-    'FastEthernet0/1': [10, 20, 30],
-    'FastEthernet0/2': [11, 30],
-    'FastEthernet0/4': [17]
-}
-
 #!/usr/bin/env python3
 
 trunk_mode_template = [
