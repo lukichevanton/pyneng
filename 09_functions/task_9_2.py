@@ -45,3 +45,31 @@ trunk_config = {
     'FastEthernet0/4': [17]
 }
 
+#!/usr/bin/env python3
+
+trunk_mode_template = [
+    'switchport mode trunk', 'switchport trunk native vlan 999',
+    'switchport trunk allowed vlan'
+]
+
+trunk_config = {
+    'FastEthernet0/1': [10, 20, 30],
+    'FastEthernet0/2': [11, 30],
+    'FastEthernet0/4': [17]
+}
+
+def generate_trunk_config(intf_vlan_mapping, trunk_template):   
+    template = []
+    for intf, vlan in intf_vlan_mapping.items():
+        vlan = ','.join([str(vlan) for vlan in vlan])
+        template.append('interface ' + intf)
+        for line in trunk_template:            
+            if line.endswith('allowed vlan'):
+                template.append(f'{line} {vlan}')   
+            else:
+                template.append(f'{line}')                         
+    print(template)
+    return(template)    
+generate_trunk_config(trunk_config,trunk_mode_template)
+
+['interface FastEthernet0/1', 'switchport mode trunk', 'switchport trunknative vlan 999', 'switchport trunk allowed vlan 10,20,30', 'interface FastEthernet0/2', 'switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 11,30', 'interface FastEthernet0/4', 'switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 17']
