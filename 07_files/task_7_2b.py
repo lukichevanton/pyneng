@@ -15,29 +15,19 @@
 
 #!/usr/bin/env python3
 
-f = open('config_sw1.txt')
-
-RESULT = f.read().split('\n')
-
 ignore = ['duplex', 'alias', 'Current configuration']
 
 config_sw1_cleared = []
-config_sw1_cleared_txt = []
 
-for command in RESULT:
+f = open('config_sw1.txt')
+for line in f.read().split('\n'):        
     for item in ignore:
-        if item in command:
+        if item in line:
             break
     else:
-        print(' {}'.format(command))
-        config_sw1_cleared.append(command)
-
+        config_sw1_cleared.append(line + '\n')
+  
 k = open('config_sw1_cleared.txt', 'w')
-
-for line in config_sw1_cleared:
-	config_sw1_cleared_txt.append(line + '\n')
-
-k.writelines(config_sw1_cleared_txt)
-
+k.writelines(config_sw1_cleared)
 f.close()
 k.close()

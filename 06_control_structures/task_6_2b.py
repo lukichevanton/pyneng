@@ -12,62 +12,56 @@
 
 #!/usr/bin/env python3
 
-"""1-ый вариант"""
+"""1ый вариант"""
 while True:
     try:
-        ip = input('Введите IP-сети в формате 1.0.0.255: ')
-        ip1,ip2,ip3,ip4 = (ip.split('.'))
+       format = input('Введите IP-адреса в формате 10.0.1.1: ')
+       ip1,ip2,ip3,ip4 = format.split('.')
     except (ValueError, TypeError, NameError):
        print("Неправильный IP-адрес")
     else:  
-        ip1 = int(ip1)
-        ip2 = int(ip2)
-        ip3 = int(ip3)
-        ip4 = int(ip4)   
-    if ip1 <= 223 and ip1 >= 1 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
-        print ("unicast")
-        break
-    elif ip1 >= 224 and ip1 <= 239 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
-        print("multicast")
-        break
-    elif ip == "255.255.255.255":
-        print("local broadcast")
-        break
-    elif ip == "0.0.0.0":
-        print("unassigned")
-    elif ip1 >= 256 or ip2 >= 256 or ip3 >= 256 or ip4 >= 256:
-        print("Неправильный IP-адрес")        
-    else:
-        print("unused")
-
-"""2-ой вариант"""
+       if int(ip1) >= 1 and int(ip1) <= 223 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
+          print('unicast')
+          break
+       elif int(ip1) >= 224 and int(ip1) <= 239 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
+          print('multicast')
+          break
+       elif format == "255.255.255.255":
+          print("local broadcast")
+          break
+       elif format == "0.0.0.0":
+          print("unassigned")
+       elif int(ip1) >= 256 or int(ip2) >= 256 or int(ip3) >= 256 or int(ip4) >= 256:
+          print("Неправильный IP-адрес")
+       else:
+          print('unused') 
+            
+"""2ой вариант"""            
 while True:
+    ip_address = input('Введите IP-адреса в формате 10.0.1.1: ')
+    ip_list = ip_address.split('.')
     try:
-        ip = input('Введите IP-сети в формате 1.0.0.255: ')
-        ip1,ip2,ip3,ip4 = (ip.split('.'))
-        ip1 = int(ip1)
-        ip2 = int(ip2)
-        ip3 = int(ip3)
-        ip4 = int(ip4)
-    except (ValueError, TypeError, NameError):
-        print("Неправильный IP-адрес")
+        ip = [int(a) for a in ip_address.split('.')]
+    except ValueError:
+        print('Incorrect IPv4 address')
+        continue
     else:
-        ip1 = int(ip1)
-        ip2 = int(ip2)
-        ip3 = int(ip3)
-        ip4 = int(ip4)
-        if ip1 <= 223 and ip1 >= 1 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
-           print("unicast")
-           break
-        elif ip1 >= 224 and ip1 <= 239 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
-           print("multicast")
-           break
-        elif ip == "255.255.255.255":
-            print("local broadcast")
+        check_range = [byte for byte in ip if 0 <= byte <= 255]
+        if not len(check_range) == 4:
+            print('Неправильный IP-адрес')
+            continue
+        elif ip[0] >= 1 and ip[0] <= 223:
+            print('unicast')
             break
-        elif ip == "0.0.0.0":
-            print("unassigned")
-        elif ip1 >= 256 or ip2 >= 256 or ip3 >= 256 or ip4 >= 256:
-            print("Неправильный IP-адрес")        
+        elif ip[0] >= 223 and ip[0] <= 239:
+            print('multicast')
+            break
+        elif ip_address == '255.255.255.255':
+            print(('ip {} local broadcast').format(ip_address))
+            break
+        elif ip_address == '0.0.0.0':
+            print(('ip {} unassigned').format(ip_address))
+            break
         else:
-            print("unused")
+            print('unused')
+            break

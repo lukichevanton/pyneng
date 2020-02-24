@@ -1,28 +1,43 @@
 #!/usr/bin/env python3
 
-# access template
-access_template = ['switchport mode access',
-                   'switchport access vlan {}',
-                   'switchport nonegotiate',
-                   'spanning-tree portfast',
-                   'spanning-tree bpduguard enable']
+Задание 5.3
+mode = input('Введите режим работы интерфейса (access/trunk): ')
+inter = input('Введите тип и номер интерфейса (Fa0/1): ')
+vlan = input('Введите номер влан(ов): ')
 
-# trunk template
-trunk_template = ['switchport trunk encapsulation dot1q',
-                  'switchport mode trunk',
-                  'switchport trunk allowed vlan {}']
+access_template = [
+    'switchport mode access', 'switchport access vlan {}',
+    'switchport nonegotiate', 'spanning-tree portfast',
+    'spanning-tree bpduguard enable'
+]
 
-mode = input("Enter interface mode (access/trunk): ")
+trunk_template = [
+    'switchport trunk encapsulation dot1q', 'switchport mode trunk',
+    'switchport trunk allowed vlan {}'
+]
 
-type = input("Enter interface type and number: ")
+template = {'access' : access_template, 'trunk' : trunk_template}
 
-vlans = input("Enter vlan(s): ")
+print('interface {}'.format(inter))
+print('\n'.join(template[mode]).format(vlan))
 
+Задание 5.3a
+mode = input('Введите режим работы интерфейса (access/trunk): ')
+inter = input('Введите тип и номер интерфейса (Fa0/1): ')
 
-print('interface {}'.format(type))
+vl  = {'access' : 'Введите номер VLAN: ', 'trunk' : 'Введите разрешенные VLANы: '}
+vlan = input(vl[mode])
 
+access_template = [
+    'switchport mode access', 'switchport access vlan {}',
+    'switchport nonegotiate', 'spanning-tree portfast',
+    'spanning-tree bpduguard enable'
+]
+trunk_template = [
+    'switchport trunk encapsulation dot1q', 'switchport mode trunk',
+    'switchport trunk allowed vlan {}'
+]
+template = {'access' : access_template, 'trunk' : trunk_template}
 
-print('\n'.join(access_template).format(vlans))
-print('\n'.join(trunk_template).format(vlans))
-
-
+print('interface {}'.format(inter))
+print('\n'.join(template[mode]).format(vlan))

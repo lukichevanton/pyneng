@@ -18,12 +18,11 @@
 from sys import argv
 
 src = argv[1]
+        
+f = open(src)
 
-f = open(' {}'.format(src))
-RESULT = f.read().split('\n')
-
-for command in RESULT:
-    if command.startswith('!'):
+for line in f.read().split('\n'):
+    if line.startswith('!'):
         continue
     else:
-        print(' {}'.format(command))
+        print(line)

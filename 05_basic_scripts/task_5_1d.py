@@ -1,19 +1,14 @@
 # -*- coding: utf-8 -*-
 '''
 Задание 5.1d
-
 Переделать скрипт из задания 5.1c таким образом, чтобы, при запросе параметра,
 пользователь мог вводить название параметра в любом регистре.
-
 Пример выполнения скрипта:
 $ python task_5_1d.py
 Введите имя устройства: r1
 Введите имя параметра (ios, model, vendor, location, ip): IOS
 15.4
-
-
 Ограничение: нельзя изменять словарь london_co.
-
 Все задания надо выполнять используя только пройденные темы.
 То есть эту задачу можно решить без использования условия if.
 '''
@@ -46,12 +41,6 @@ london_co = {
     }
 }
 
-name = input("Enter device name: ")
-
-list = list(london_co[name].keys())
-list1 = ','.join(list)
-
-print("Enter parameter name", '(' ,list1, ")", ":", end=" ")
-parameter = input()
-
-print(london_co[name].get(parameter.lower(), "There isn't such parameter"))
+dev = input('Введите имя устройства: ')
+param = input('Введите имя параметра ({}): '.format(','.join(list(london_co[dev].keys()))))
+print(london_co[dev].get(param.upper().lower(),'Такого параметра нет'))

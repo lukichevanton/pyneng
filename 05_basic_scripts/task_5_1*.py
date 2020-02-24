@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-
 london_co = {
     'r1': {
         'location': '21 New Globe Walk',
@@ -27,54 +26,27 @@ london_co = {
     }
 }
 
-""""""
+Задание 5.1
+device = input('Введите имя устройства: ')
+print(london_co[device])
+print(london_co)
 
-#name = input("Enter device name: ")
+Задание 5.1a
+dev = input('Введите имя устройства: ')
+param = input('Введите имя параметра: ')
+print(london_co[dev][param])
 
-#print(london_co[name])
+Задание 5.1b
+dev = input('Введите имя устройства: ')
+param = input('Введите имя параметра ({}): '.format(','.join(list(london_co[dev].keys()))))
+print(london_co[dev][param])
 
-""""""
+Задание 5.1c
+dev = input('Введите имя устройства: ')
+param = input('Введите имя параметра ({}): '.format(','.join(list(london_co[dev].keys()))))
+print(london_co[dev].get(param,'Такого параметра нет'))
 
-#name = input("Enter device name: ")
-
-#parameter = input("Enter parameter name: ")
-
-#print(london_co[name][parameter])
-
-""""""
-
-#name = input("Enter device name: ")
-
-#list = list(london_co[name].keys())
-#list1 = ','.join(list)
-
-#print("Enter parameter name", '(' ,list1, ")" ":", end=" ")
-#parameter = input()
-
-#print(london_co[name][parameter])
-
-""""""
-
-#name = input("Enter device name: ")
-
-#list = list(london_co[name].keys())
-#list1 = ','.join(list)
-
-#print("Enter parameter name", '(' ,list1, ")", ":", end=" ")
-#parameter = input()
-
-#print(london_co[name].get(parameter, "There isn't such parameter"))
-
-
-""""""
-
-name = input("Enter device name: ")
-
-list = list(london_co[name].keys())
-list1 = ','.join(list)
-
-print("Enter parameter name", '(' ,list1, ")", ":", end=" ")
-parameter = input()
-
-print(london_co[name].get(parameter.lower(), "There isn't such parameter"))
-
+Задание 5.1d
+dev = input('Введите имя устройства: ')
+param = input('Введите имя параметра ({}): '.format(','.join(list(london_co[dev].keys()))))
+print(london_co[dev].get(param.upper().lower(),'Такого параметра нет'))

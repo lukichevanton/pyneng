@@ -9,7 +9,9 @@
 
 '''
 
+#!/usr/bin/env python3
+
 NAT = 'ip nat inside source list ACL interface FastEthernet0/1 overload'
 
-In [2]: Nat.replace('Fast','Gigabit')
-Out[2]: 'ip nat inside source list ACL interface GigabitEthernet0/1 overload'
+NAT.replace('Fast','Gigabit')
+print(NAT)

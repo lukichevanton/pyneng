@@ -17,3 +17,12 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 '''
+
+#!/usr/bin/env python3
+
+f = open('CAM_table.txt')
+
+for line in f.read().split('\n'):
+    if '.' in line:
+        vlan,mac,typ,port = line.split()
+        print('{:4}  {:10}  {:10}'.format(vlan,mac,port))

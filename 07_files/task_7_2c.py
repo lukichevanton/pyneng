@@ -20,32 +20,14 @@
 
 from sys import argv
 
-src = argv[1]
-dst = argv[2]
-
-f = open(' {}'.format(src))
-
-RESULT = f.read().split('\n')
+src_file, dst_file = argv[1:]
 
 ignore = ['duplex', 'alias', 'Current configuration']
 
-config_sw1_cleared = []
-config_sw1_cleared_txt = []
-
-for command in RESULT:
-    for item in ignore:
-        if item in command:
-            break
-    else:
-        print(' {}'.format(command))
-        config_sw1_cleared.append(command)
-
-k = open(' {}'.format(dst), 'w')
-
-for line in config_sw1_cleared:
-	config_sw1_cleared_txt.append(line + '\n')
-
-k.writelines(config_sw1_cleared_txt)
-
-f.close()
-k.close()
+with open(src_file) as src, open(dst_file, 'w') as dst:      
+    for line in src.read().split('\n'):     
+        for item in ignore:
+            if item in line:
+                break
+        else:
+            dst.write(line +'\n')

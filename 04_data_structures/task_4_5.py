@@ -11,46 +11,12 @@
 
 '''
 
+#!/usr/bin/env python3
+
 command1 = 'switchport trunk allowed vlan 1,2,3,5,8'
 command2 = 'switchport trunk allowed vlan 1,3,8,9'
 
-In [48]: command1 = 'switchport trunk allowed vlan 1,3,10,20,30,100'
-
-In [49]: command2 = 'switchport trunk allowed vlan 1,3,100,200,300'
-
-In [50]: vlans1 = command1.split()
-
-In [51]: vlans2 = command2.split()
-
-In [52]: vlans1 = vlans1[4].split(',')
-
-In [53]: vlans2 = vlans2[4].split(',')
-
-In [54]: vlans1 = set(vlans1)
-
-In [55]: vlans2 = set(vlans2)
-
-In [60]: Total = vlans1 & vlans2
-
-In [64]: Total = list(Total)
-
-In [68]: print(Total)
-['100', '3', '1']
-
-
-""""""
-
-
-In [100]: command1 = 'switchport trunk allowed vlan 1,3,10,20,30,100'
-
-In [101]: command2 = 'switchport trunk allowed vlan 1,3,100,200,300'
-
-In [102]: vlans = list(set((command1.split())[-1].split(',')) & set((command2.sp
-     ...: lit())[-1].split(',')))
-
-In [103]: print(vlans)
-['100', '3', '1']
-
-
+vlans = list(set(command1.split()[-1].split(',')).intersection(set(command2.split()[-1].split(','))))
+print(vlans)
 
 
