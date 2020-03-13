@@ -41,3 +41,31 @@ Cгенерировать топологию, которая соответст�
 
 '''
 
+#!/usr/bin/env python3
+
+cdp = ['sh_cdp_n_r1.txt', 'sh_cdp_n_r2.txt','sh_cdp_n_r3.txt','sh_cdp_n_sw1.txt']
+
+def create_network_map(filenames):
+    local_remote = {}
+    for line in filenames:#цикл проходит по строкам в списке, список состоит из имен файлов       
+        line = open(line)
+        line = line.readlines()
+        for lines in line:#цикл проходит по строкам в списке, список это вывод команды 'show cdp neighbors'
+            local = []
+            remote = []
+            if 'show cdp neighbors' in lines:
+                localdev = lines.split('>')[0]   
+            elif 'Eth' in lines:
+                remotedev, localeth, localport, *_, remoteth, remoteport = lines.split()
+                local.append(localdev)
+                remote.append(remotedev)
+                local_int = localeth + localport
+                remote_int = remoteth + remoteport
+                local.append(local_int)
+                remote.append(remote_int)
+                local_tuple = tuple(local)#делает из списка кортеж ()
+                remote_tuple = tuple(remote)#делает из списка кортеж ()
+                local_remote[local_tuple] = remote_tuple#добавляет кортежи в словарь
+    return(local_remote)#функция возвращает значение после прохождения цикла по всем строкам
+result = create_network_map(cdp)
+print(result)
