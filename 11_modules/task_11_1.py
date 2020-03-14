@@ -54,3 +54,7 @@ def parse_cdp_neighbors(command_output):
     return(local_remote)#функция возвращает значение после прохождения цикла по всем строкам
 result = parse_cdp_neighbors(r)
 print(result)
+
+'''
+{('SW1', 'Eth0/1'): ('R1', 'Eth0/0'), ('SW1', 'Eth0/2'): ('R2', 'Eh0/2'): ('R1', 'Eth0/0, B - Source Route Bridge\th0/0'), ('SW1', 'Eth0/3'): ('R3', 'Eth0/0'), ('SW1', 'Eth0/5'): (th0'): ('R1', 'Eth0/0' P - P', '\nDevi    LIntrf'R6', 'Eth0/1')}
+'''
