@@ -68,34 +68,28 @@ def create_network_map(filenames):
                 local_tuple = tuple(local)#делает из списка кортеж ()
                 remote_tuple = tuple(remote)#делает из списка кортеж ()
                 local_remote[local_tuple] = remote_tuple#добавляет кортежи в словарь
-    return(local_remote)#функция возвращает значение после прохождения цикла по всем строкам
+    '''
+    print(local_remote)
+    {('R1', 'Eth0/0'): ('SW1', 'Eth0/1'), ('R2', 'Eth0/0'): ('SW1', 'Eth0/2'), ('R2', 'Eth0/1'): ('SW2', 'Eth0/11'), ('R3', 'Eth0/0'): ('SW1', 'Eth0/3'), ('R3', 'Eth0/1'): ('R4', 'Eth0/0'), ('R3', 'Eth0/2'): ('R5', 'Eth0/0'), ('SW1', 'Eth0/1'): ('R1', 'Eth0/0'), ('SW1', 'Eth0/2'): ('R2', 'Eth0/0'), ('SW1', 'Eth
+    0/3'): ('R3', 'Eth0/0'), ('SW1', 'Eth0/5'): ('R6', 'Eth0/1')}
+    '''
+    local_remote2 = {} 
+    key_value = []#список нужен для поиска дублированных значений в словаре
+    for key, value in local_remote.items():#цикл проходит по ключам и значениям в словаре  
+        if key not in key_value or value not in key_value:#если ключа или значения нет в списке, то добавляет их в список для дальнейшего поиска дублированных значений и создает словарь заново
+            key_value.append(key) 
+            key_value.append(value)
+            local_remote2[key] = value
+    return(local_remote2)#функция возвращает значение после прохождения цикла
+    '''
+    print(local_remote2)
+    {('R1', 'Eth0/0'): ('SW1', 'Eth0/1'), ('R2', 'Eth0/0'): ('SW1', 'Eth0/2'), ('R2', 'Eth0/1'): ('SW2', 'Eth0/11'), ('R3', 'Eth0/0'): ('SW1', 'Eth0/3'), ('R3', 'Eth0/1'): ('R4', 'Eth0/0'), ('R3', 'Eth0/2'): ('R5', 'Eth0/0'), ('SW1', 'Eth0/5'): ('R6', 'Eth0/1')}
+    '''
 result = create_network_map(cdp)
 
-'''
-{('R1', 'Eth0/0'): ('SW1', 'Eth0/1'), ('R2', 'Eth0/0'): ('SW1', 'Eth0/2'), ('R2', 'Eth0/1'): ('SW2', 'Eth0/11'), ('R3', 'Eth0/0'): ('SW1', 'Eth0/3'), ('R3', 'Eth0/1'): ('R4', 'Eth0/0'), ('R3', 'Eth0/2'): ('R5', 'Eth0/0'), ('SW1', 'Eth0/1'): ('R1', 'Eth0/0'), ('SW1', 'Eth0/2'): ('R2', 'Eth0/0'), ('SW1', 'Eth
-0/3'): ('R3', 'Eth0/0'), ('SW1', 'Eth0/5'): ('R6', 'Eth0/1')}
-'''
-
-result2 = {} 
-lists = [] 
- 
-for key, value in result.items():
-    dic_buffer = {} 
-    key_str = ''.join(list(key)) 
-    value_str = ''.join(list(value)) 
-    if key_str not in ''.join(lists) or value_str not in ''.join(lists):
-        lists.append(key_str) 
-        lists.append(value_str) 
-        result2[key] = value
-    else:
-        pass
+draw_topology(result)
 
 '''
-{('R1', 'Eth0/0'): ('SW1', 'Eth0/1'), ('R2', 'Eth0/0'): ('SW1', 'Eth0/2'), ('R2', 'Eth0/1'): ('SW2', 'Eth0/11'), ('R3', 'Eth0/0'): ('SW1', 'Eth0/3'), ('R3', 'Eth0/1'): ('R4', 'Eth0/0'), ('R3', 'Eth0/2'): ('R5', 'Eth0/0'), ('SW1', 'Eth0/5'): ('R6', 'Eth0/1')}
-'''
-
-draw_topology(result2)
-
-'''
+      $ python task_11_2.py 
 Graph saved in img/topology.svg
 '''
