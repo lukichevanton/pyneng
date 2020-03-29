@@ -53,6 +53,13 @@ def print_ip_table(ip0, ip1):
 	return(result)
 final = print_ip_table(addresses2 [0], addresses2 [1])
 print(final)
+'''
+      $ python task_12_3.py 
+Reachable    Unreachable
+-----------  -------------
+8.8.8.8      1.2.3.4
+1.1.1.1      1.2.3.5
+'''
 
 '''
 #Объединяет две функции в одну
@@ -71,8 +78,8 @@ def ping_ip_addresses(ip):
 	result = tabulate({"Reachable": alive, "Unreachable": unreachable}, headers="keys")
 	#Создает словарь - {"Reachable": ['8.8.8.8', '1.1.1.1'], "Unreachable": ['1.2.3.4', '1.2.3.5']}
 	return(result)
-addresses2 = ping_ip_addresses(addresses)
-print(addresses2)
+final2 = ping_ip_addresses(addresses)
+print(final2)
 '''
 '''
       $ python task_12_3.py 
