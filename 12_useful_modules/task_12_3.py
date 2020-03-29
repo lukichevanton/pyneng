@@ -25,36 +25,57 @@ Reachable    Unreachable
 '''
 
 #!/usr/bin/env python3
-'''
+
 import subprocess
 
 from tabulate import tabulate
 
-address = ['8.8.8.8', '1.2.3.4', '1.1.1.1', '1.2.3.5']
+addresses = ['8.8.8.8', '1.2.3.4', '1.1.1.1', '1.2.3.5']
 
 def ping_ip_addresses(ip):
-	result = []
-	alive = []
-	unreachable = []	
-	for ip in address:
-		reply = subprocess.run(['ping', '-c', '1', '-n', ip])
+	result = []#[['8.8.8.8', '1.1.1.1'], ['1.2.3.4', '1.2.3.5']]
+	alive = []#['8.8.8.8', '1.1.1.1']
+	unreachable = []#['1.2.3.4', '1.2.3.5']
+	for ip in addresses:
+		reply = subprocess.run(['ping', '-c', '1', '-n', ip], stdout=subprocess.DEVNULL)
 		if reply.returncode == 0:                         
 			alive.append(ip)         
 		else:
 			unreachable.append(ip)       	
 	result.append(alive)
 	result.append(unreachable)
-
-	#tuple_result = tuple(result)
 	return(result)
+addresses2 = ping_ip_addresses(addresses)#[['8.8.8.8', '1.1.1.1'], ['1.2.3.4', '1.2.3.5']]
 
-ping = ping_ip_addresses(address)
-print(ping)'''
+def print_ip_table(ip0, ip1):
+	result = tabulate({"Reachable": ip0, "Unreachable": ip1}, headers="keys")
+	return(result)
+final = print_ip_table(addresses2 [0], addresses2 [1])
+print(final)
 
-from tabulate import tabulate
-
-test = [{'Reachable': '8.8.8.8',
-		'Unreachable': '1.2.3.4'},
-		{'Reachable': '1.1.1.1',
-		'Unreachable': '1.2.3.5'}]
-print(tabulate(test, headers='keys'))
+'''
+#Объединяет две функции в одну
+def ping_ip_addresses(ip):
+	result = []#[['8.8.8.8', '1.1.1.1'], ['1.2.3.4', '1.2.3.5']]
+	alive = []#['8.8.8.8', '1.1.1.1']
+	unreachable = []#['1.2.3.4', '1.2.3.5']
+	for ip in addresses:
+		reply = subprocess.run(['ping', '-c', '1', '-n', ip], stdout=subprocess.DEVNULL)
+		if reply.returncode == 0:                         
+			alive.append(ip)         
+		else:
+			unreachable.append(ip)       	
+	result.append(alive)
+	result.append(unreachable)
+	result = tabulate({"Reachable": alive, "Unreachable": unreachable}, headers="keys")
+	return(result)
+addresses2 = ping_ip_addresses(addresses)
+print(addresses2)
+'''
+'''
+      $ python task_12_3.py 
+Reachable    Unreachable
+-----------  -------------
+8.8.8.8      1.2.3.4
+1.1.1.1      1.2.3.5
+'''

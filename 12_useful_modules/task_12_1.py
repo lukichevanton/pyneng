@@ -39,5 +39,6 @@ def ping_ip_addresses(ip):
 
 ping = ping_ip_addresses(address)
 print(ping)
-
+'''
 (['8.8.8.8', '1.1.1.1'], ['1.2.3.4', '1.2.3.5'])
+'''
