@@ -49,6 +49,7 @@ addresses2 = ping_ip_addresses(addresses)#[['8.8.8.8', '1.1.1.1'], ['1.2.3.4', '
 
 def print_ip_table(ip0, ip1):
 	result = tabulate({"Reachable": ip0, "Unreachable": ip1}, headers="keys")
+	#Создает словарь - {"Reachable": ['8.8.8.8', '1.1.1.1'], "Unreachable": ['1.2.3.4', '1.2.3.5']}
 	return(result)
 final = print_ip_table(addresses2 [0], addresses2 [1])
 print(final)
@@ -68,6 +69,7 @@ def ping_ip_addresses(ip):
 	result.append(alive)
 	result.append(unreachable)
 	result = tabulate({"Reachable": alive, "Unreachable": unreachable}, headers="keys")
+	#Создает словарь - {"Reachable": ['8.8.8.8', '1.1.1.1'], "Unreachable": ['1.2.3.4', '1.2.3.5']}
 	return(result)
 addresses2 = ping_ip_addresses(addresses)
 print(addresses2)
