@@ -27,8 +27,8 @@ Reachable    Unreachable
 #!/usr/bin/env python3
 
 import subprocess
-from check_ip_function import check_ip
-from tabulate import tabulate
+from check_ip_function import check_ip#использование функции check_ip_function.py
+from tabulate import tabulate#использование модуля построения таблиц tabulate
 
 addresses = ['8.8.4.4', '1.1.1.1-3', '172.21.41.128-172.21.41.132']
 
