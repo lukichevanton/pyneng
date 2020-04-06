@@ -82,7 +82,6 @@ def print_ip_table(ip_addresses0, ip_addresses1):
 	return result
 really_final = print_ip_table(final_round2 [0], final_round2 [1])#Создает словарь - {"Reachable": ['8.8.4.4', '1.1.1.1', '1.1.1.2', '1.1.1.3'], "Unreachable": ['172.21.41.128', '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']}
 print(really_final)
-
 '''
       $ python task_12_3.py 
 Reachable    Unreachable
