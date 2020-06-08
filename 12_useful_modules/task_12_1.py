@@ -21,11 +21,11 @@ import subprocess
 
 address = ['8.8.8.8','1.2.3.4', '1.1.1.1', '1.2.3.5']
 
-def ping_ip_addresses(ip):
+def ping_ip_addresses(ip_address):
 	result = []
 	alive = []
 	unreachable = []	
-	for ip in address:
+	for ip in ip_address:
 		reply = subprocess.run(['ping', '-c', '1', '-n', ip])
 		if reply.returncode == 0:                         
 			alive.append(ip)         

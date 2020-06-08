@@ -51,13 +51,13 @@ def convert_ranges_to_ip_list(ip_addresses):
             ip6 = '.'.join(ip4)+'.'#172.21.41.
             ip7 = int(ip1[3])#128
             ip8 = int(ip2[3])#132
-            list1 = [ip5 + str(i) for i in range(int(ip7),int(ip8)+1)]#['172.21.41.128', '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']                    
+            list1 = [ip5 + str(i) for i in range(ip7,ip8+1)]#['172.21.41.128', '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']                    
         else:#если ip-адрес не типа 172.21.41.132 то:
             ip1 = ip[0].split('.')#['1', '1', '1', '1']
             ip2 = ip1[0:3]#['1', '1', '1']
             ip3 = '.'.join(ip2)+'.'#1.1.1.
             ip4 = int(ip1[3])#1
-            list2 = [ip3 + str(i) for i in range(int(ip4),int(ip[1])+1)]#['1.1.1.1', '1.1.1.2', '1.1.1.3']
+            list2 = [ip3 + str(i) for i in range(ip4,int(ip[1])+1)]#['1.1.1.1', '1.1.1.2', '1.1.1.3']
     result = correct + list2 + list1
     return result
 final_round1 = convert_ranges_to_ip_list(addresses)#['8.8.4.4', '1.1.1.1', '1.1.1.2', '1.1.1.3', '172.21.41.128', '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']
@@ -80,7 +80,7 @@ final_round2 = ping_ip_addresses(final_round1)#[['8.8.4.4', '1.1.1.1', '1.1.1.2'
 def print_ip_table(ip_addresses0, ip_addresses1):
 	result = tabulate({"Reachable": ip_addresses0, "Unreachable": ip_addresses1}, headers="keys")
 	return result
-really_final = print_ip_table(final_round2 [0], final_round2 [1])#Создает словарь - {"Reachable": ['8.8.4.4', '1.1.1.1', '1.1.1.2', '1.1.1.3'], "Unreachable": ['172.21.41.128', '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']}
+really_final = print_ip_table(final_round2[0], final_round2[1])#Создает словарь - {"Reachable": ['8.8.4.4', '1.1.1.1', '1.1.1.2', '1.1.1.3'], "Unreachable": ['172.21.41.128', '172.21.41.129', '172.21.41.130', '172.21.41.131', '172.21.41.132']}
 print(really_final)
 '''
       $ python task_12_3.py 

@@ -47,42 +47,38 @@ from draw_network_graph import *
 
 cdp = ['sh_cdp_n_r1.txt', 'sh_cdp_n_r2.txt','sh_cdp_n_r3.txt','sh_cdp_n_sw1.txt']
 
-def create_network_map(filenames):
+def create_network_map(filenames):    
     local_remote = {}
-    for line in filenames:#цикл проходит по строкам в списке, список состоит из имен файлов       
-        line = open(line)
-        line = line.readlines()
-        for lines in line:#цикл проходит по строкам в списке, список это вывод команды 'show cdp neighbors'
-            local = []
-            remote = []
-            if 'show cdp neighbors' in lines:
-                localdev = lines.split('>')[0]   
-            elif 'Eth' in lines:
-                remotedev, localeth, localport, *_, remoteth, remoteport = lines.split()
-                local.append(localdev)
-                remote.append(remotedev)
-                local_int = localeth + localport
-                remote_int = remoteth + remoteport
-                local.append(local_int)
-                remote.append(remote_int)
-                local_tuple = tuple(local)#делает из списка кортеж ()
-                remote_tuple = tuple(remote)#делает из списка кортеж ()
-                local_remote[local_tuple] = remote_tuple#добавляет кортежи в словарь
+    for file in filenames:
+        with open(file) as f:
+            for line in f:
+                local = []
+                remote = []
+                if 'show cdp neighbors' in line:
+                    localdev = line.split('>')[0]   
+                elif '/' in line:
+                    remotedev, localeth, localport, *_, remoteth, remoteport = line.split()
+                    local.append(localdev)
+                    remote.append(remotedev)
+                    local_int = localeth + localport
+                    remote_int = remoteth + remoteport
+                    local.append(local_int)
+                    remote.append(remote_int)
+                    local_tuple = tuple(local)#делает из списка кортеж ()
+                    remote_tuple = tuple(remote)#делает из списка кортеж ()
+                    local_remote[local_tuple] = remote_tuple#добавляет кортежи в словарь
     '''
-    print(local_remote)
-    {('R1', 'Eth0/0'): ('SW1', 'Eth0/1'), ('R2', 'Eth0/0'): ('SW1', 'Eth0/2'), ('R2', 'Eth0/1'): ('SW2', 'Eth0/11'), ('R3', 'Eth0/0'): ('SW1', 'Eth0/3'), ('R3', 'Eth0/1'): ('R4', 'Eth0/0'), ('R3', 'Eth0/2'): ('R5', 'Eth0/0'), ('SW1', 'Eth0/1'): ('R1', 'Eth0/0'), ('SW1', 'Eth0/2'): ('R2', 'Eth0/0'), ('SW1', 'Eth
-    0/3'): ('R3', 'Eth0/0'), ('SW1', 'Eth0/5'): ('R6', 'Eth0/1')}
+    {('R1', 'Eth0/0'): ('SW1', 'Eth0/1'), ('R2', 'Eth0/0'): ('SW1', 'Eth0/2'), ('R2', 'Eth0/1'): ('SW2', 'Eth0/11'), ('R3', 'Eth0/0'): ('SW1', 'Eth0/3'), ('R3', 'Eth0/1'): ('R4', 'Eth0/0'), ('R3', 'Eth0/2'): ('R5', 'Eth0/0'), ('SW1', 'Eth0/1'): ('R1', 'Eth0/0'), ('SW1', 'Eth0/2'): ('R2', 'Eth0/0'), ('SW1', 'Eth0/3'): ('R3', 'Eth0/0'), ('SW1', 'Eth0/5'): ('R6', 'Eth0/1')}
     '''
     local_remote2 = {} 
     key_value = []#список нужен для поиска дублированных значений в словаре
     for key, value in local_remote.items():#цикл проходит по ключам и значениям в словаре  
-        if key not in key_value or value not in key_value:#если ключа или значения нет в списке, то добавляет их в список для дальнейшего поиска дублированных значений и создает словарь заново
+        if key not in key_value or value not in key_value:#если ключа или значения нет в списке, то добавляет их в список для дальнейшего поиска дублированных значений и создает словарь заново. Мы удаляем зеркальный значения/дубли.
             key_value.append(key) 
             key_value.append(value)
             local_remote2[key] = value
     return(local_remote2)#функция возвращает значение после прохождения цикла
     '''
-    print(local_remote2)
     {('R1', 'Eth0/0'): ('SW1', 'Eth0/1'), ('R2', 'Eth0/0'): ('SW1', 'Eth0/2'), ('R2', 'Eth0/1'): ('SW2', 'Eth0/11'), ('R3', 'Eth0/0'): ('SW1', 'Eth0/3'), ('R3', 'Eth0/1'): ('R4', 'Eth0/0'), ('R3', 'Eth0/2'): ('R5', 'Eth0/0'), ('SW1', 'Eth0/5'): ('R6', 'Eth0/1')}
     '''
 result = create_network_map(cdp)

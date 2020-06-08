@@ -13,5 +13,8 @@
 
 mac = 'AAAA:BBBB:CCCC'
 
-mac = bin(int((mac.replace(':','')), 16))
-print(mac)
+mac2 = bin(int((mac.replace(':','')), 16))
+print(mac2)
+mac = mac.split(':')
+mac1 = bin(int(mac[0], 16))+bin(int(mac[1], 16))+bin(int(mac[2], 16))
+print(mac1)

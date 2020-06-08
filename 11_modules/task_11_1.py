@@ -30,29 +30,27 @@ R6           Fa 0/2          143           R S I           2811       Fa 0/0
 
 #!/usr/bin/env python3
 
-r = open('sh_cdp_n_sw1.txt')
-r = r.readlines()
-
-def parse_cdp_neighbors(command_output):
+def parse_cdp_neighbors(command_output):    
     local_remote = {}
-    for line in command_output:#цикл проходит по строкам
-        local = []
-        remote = []   
-        if 'show cdp neighbors' in line:
-            localdev = line.split('>')[0]   
-        elif 'Eth' in line:
-            remotedev, localeth, localport, *_, remoteth, remoteport = line.split()
-            local.append(localdev)
-            remote.append(remotedev)
-            local_int = localeth + localport
-            remote_int = remoteth + remoteport
-            local.append(local_int)
-            remote.append(remote_int)
-            local_tuple = tuple(local)#делает из списка кортеж ()
-            remote_tuple = tuple(remote)#делает из списка кортеж ()
-            local_remote[local_tuple] = remote_tuple#добавляет кортежи в словарь
+    with open(command_output) as f:
+        for line in f:
+            local = []
+            remote = []
+            if 'show cdp neighbors' in line:
+                localdev = line.split('>')[0]   
+            elif '/' in line:
+                remotedev, localeth, localport, *_, remoteth, remoteport = line.split()
+                local.append(localdev)
+                remote.append(remotedev)
+                local_int = localeth + localport
+                remote_int = remoteth + remoteport
+                local.append(local_int)
+                remote.append(remote_int)
+                local_tuple = tuple(local)#делает из списка кортеж ()
+                remote_tuple = tuple(remote)#делает из списка кортеж ()
+                local_remote[local_tuple] = remote_tuple#добавляет кортежи в словарь
     return(local_remote)#функция возвращает значение после прохождения цикла по всем строкам
-result = parse_cdp_neighbors(r)
+result = parse_cdp_neighbors('sh_cdp_n_sw1.txt')
 print(result)
 
 '''
