@@ -11,10 +11,19 @@
 
 #!/usr/bin/env python3
 
+'''1-ый вариант'''
 mac = 'AAAA:BBBB:CCCC'
 
 mac2 = bin(int((mac.replace(':','')), 16))
 print(mac2)
+'''
+0b101010101010101010111011101110111100110011001100
+'''
+
+'''2-ой вариант'''
 mac = mac.split(':')
 mac1 = bin(int(mac[0], 16))+bin(int(mac[1], 16))+bin(int(mac[2], 16))
 print(mac1)
+'''
+0b10101010101010100b10111011101110110b1100110011001100
+'''

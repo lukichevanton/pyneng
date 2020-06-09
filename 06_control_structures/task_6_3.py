@@ -61,7 +61,8 @@ trunk = {
         '0/4': ['del', '17']#switchport trunk allowed vlan remove
 }
 
-"""1ый вариант"""
+'''1ый вариант'''
+
 for intf, vlan in trunk.items():
     print('interface FastEthernet' + intf)
     for command in trunk_template:
@@ -70,7 +71,21 @@ for intf, vlan in trunk.items():
         else:
             print(' {}'.format(command))
 
-"""2ой вариант"""
+'''2ой вариант'''
+
+for intf, vlan in trunk.items():
+    print('interface FastEthernet' + intf)
+    for command in trunk_template:
+        if command.endswith('allowed vlan'):
+            if vlan[0] == 'add' or vlan[0] == 'del':
+                print(' {} {} {}'.format(command, vlan[0].replace('del','remove'),','.join(vlan[1:])))
+            elif vlan[0] == 'only':
+                print(' {} {}'.format(command, ','.join(vlan[1:])))
+        else:
+            print(' {}'.format(command))
+
+'''3ий вариант'''
+
 for intf, vlan in trunk.items():
     print('interface FastEthernet' + intf)
     for trunk_command in trunk_template:
@@ -84,3 +99,20 @@ for intf, vlan in trunk.items():
                 print(' {} {} {}'.format(trunk_command, vlan[0], ','.join(vlan[1:])))
         else:
             print(' {}'.format(trunk_command))
+
+'''
+interface FastEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan add 10,20
+interface FastEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan 11,30
+interface FastEthernet0/4
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport trunk allowed vlan remove 17
+ '''
+
+

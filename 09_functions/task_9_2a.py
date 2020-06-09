@@ -27,18 +27,20 @@ trunk_config = {
     'FastEthernet0/4': [17]
 }
 
-def generate_trunk_config(intf_vlan_mapping, trunk_template):   
-    template = {}
+def intf_vlan_mapping(intf_vlan_mapping, trunk_template):
+    final2 = {}
     for intf, vlan in intf_vlan_mapping.items():
-        template[intf] = []
-        vlan = ','.join([str(vlan) for vlan in vlan])
-        for line in trunk_template:            
+        final = []
+        vlan = ','.join([str(vlans) for vlans in vlan])
+        for line in trunk_template:
             if line.endswith('allowed vlan'):
-                template[intf].append(f'{line} {vlan}')          
+                final.append(f'{line} {vlan}')
             else:
-                template[intf].append(line)                             
-    print(template)
-    return(template)
-generate_trunk_config(trunk_config,trunk_mode_template)
-
+                final.append(line)
+            final2[intf] = final#создаются значения ключей в виде списка, если не создать список будет обычный словарь и добавится только одно значение: {'FastEthernet0/1': 'switchport trunk allowed vlan 10,20,30', 'FastEthernet0/2': 'switchport trunk allowed vlan 11,30', 'FastEthernet0/4': 'switchport trunk allowed vlan 17'}
+    return(final2)
+result = intf_vlan_mapping(trunk_config, trunk_mode_template)
+print(result)
+'''
 {'FastEthernet0/1': ['switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 10,20,30'], 'FastEthernet0/2': ['switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 11,30'], 'FastEthernet0/4': ['switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 17']}
+'''

@@ -42,20 +42,21 @@ access_config = {
     'FastEthernet0/16': 17
 }
 
-def generate_access_config(intf_vlan_mapping, access_template,psecurity=None):#по умолчанию параметр psecurity не используется 
-    template = []
+def generate_access_config(intf_vlan_mapping, access_template, psecurity=False):
+    final = []
     for intf, vlan in intf_vlan_mapping.items():
-        template.append('interface ' + intf)
+        final.append('Interface'+intf)
         for line in access_template:
             if line.endswith('access vlan'):
-                template.append(f'{line} {vlan}')
+                final.append(f'{line} {vlan}')
             else:
-                template.append(f'{line}')
+                final.append(line)
         if psecurity:
-            template.extend(psecurity)#если есть аргумент для параметра psecurity, то объеденяет список psecurity со списком template                      
-    print(template)
-    return(template)
-generate_access_config(access_config,access_mode_template,port_security_template)
+                final.extend(psecurity)#если есть аргумент для параметра psecurity, то объеденяет список psecurity со списком final
+    return(final)
+result = generate_access_config(access_config, access_mode_template, port_security_template)
 #если есть аргумент - port_security_template, то используется список port_security_template
-
-['interface FastEthernet0/12', 'switchport mode access', 'switchport access vlan 10', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'switchport port-security maximum 2', 'switchport port-security violation restrict', 'switchport port-security', 'interface FastEthernet0/14', 'switchport mode access', 'switchport access vlan11', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'switchport port-security maximum 2', 'switchport port-security violation restrict', 'switchport port-security', 'interface FastEthernet0/16', 'switchport mode access', 'switchport access vlan 17', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'switchport port-security maximum 2', 'switchport port-security violation restrict', 'switchport port-security']
+print(result)
+'''
+['InterfaceFastEthernet0/12', 'switchport mode access', 'switchport access vlan 10', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'switchport port-security maximum 2', 'switchport port-security violation restrict', 'switchport port-security', 'InterfaceFastEthernet0/14', 'switchport mode access', 'switchport access vlan 11', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'switchport port-security maximum 2', 'switchport port-security violation restrict', 'switchport port-security', 'InterfaceFastEthernet0/16', 'switchport mode access', 'switchport access vlan 17', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'switchport port-security maximum 2', 'switchport port-security violation restrict', 'switchport port-security']
+'''

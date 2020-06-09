@@ -107,8 +107,7 @@ ip = ('{:08b}{:08b}{:08b}{:08b}').format(
     int(ip1), int(ip2), int(ip3), int(ip4))
 ip = ('').join(ip)
 newmasks = bimasks[mask]
-#000000010000000100000001 + 00000000
-ip = ip[:int(mask)] + newmasks
+ip = ip[:int(mask)] + newmasks#000000010000000100000001 + 00000000
 
 subnet1,subnet2,subnet3,subnet4 = [int(ip[:8], 2), int(ip[8:16], 2), int(ip[16:24], 2), int(ip[24:32], 2)]
 print("Network:")
@@ -125,3 +124,13 @@ print(('{:8} {:8} {:8} {:8}').format(
     mask1, mask2, mask3, mask4))
 print(('{:08b} {:08b} {:08b} {:08b}').format(
     int(mask1), int(mask2), int(mask3), int(mask4)))
+'''
+Введите IP-сеть в формате (10.1.1.0/24):  1.1.1.1/24
+Network:
+1        1        1        0       
+00000001 00000001 00000001 00000000
+Mask:
+/24
+255      255      255      0       
+11111111 11111111 11111111 00000000
+'''

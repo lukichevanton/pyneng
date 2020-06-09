@@ -15,14 +15,9 @@
 
 #!/usr/bin/env python3
 
-from sys import argv
-
-src = argv[1]
-        
-f = open(src)
-
-for line in f.read().split('\n'):
-    if line.startswith('!'):
-        continue
-    else:
-        print(line)
+with open('config_sw1.txt', 'r') as f:
+    for line in f:
+        if line.startswith('!'):
+            continue
+        else:
+            print(line.strip())

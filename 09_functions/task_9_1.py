@@ -66,16 +66,17 @@ def generate_access_config(intf_vlan_mapping, access_template):
 
     Возвращает список всех портов в режиме access с конфигурацией на основе шаблона
     '''
-    template = []
+    final = []
     for intf, vlan in intf_vlan_mapping.items():
-        template.append('interface ' + intf)
+        final.append('Interface'+intf)
         for line in access_template:
             if line.endswith('access vlan'):
-                template.append(f'{line} {vlan}')
+                final.append(f'{line} {vlan}')
             else:
-                template.append(f'{line}')         
-    print(template)
-    return(template)
-generate_access_config(access_config,access_mode_template)
-
-['interface FastEthernet0/12', 'switchport mode access', 'switchport access vlan 10', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'interface FastEthernet0/14', 'switchport modeaccess', 'switchport access vlan 11', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'interface FastEthernet0/16', 'switchport mode access', 'switchport access vlan 17', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable']
+                final.append(line)
+    return(final)
+result = generate_access_config(access_config, access_mode_template)
+print(result)
+'''
+['InterfaceFastEthernet0/12', 'switchport mode access', 'switchport access vlan 10', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'InterfaceFastEthernet0/14', 'switchport mode access', 'switchport access vlan 11', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable', 'InterfaceFastEthernet0/16', 'switchport mode access', 'switchport access vlan 17', 'switchport nonegotiate', 'spanning-tree portfast', 'spanning-tree bpduguard enable']
+'''

@@ -21,9 +21,9 @@
 format = input('Введите IP-адреса в формате 10.0.1.1: ')
 ip1,ip2,ip3,ip4 = format.split('.')
 
-if ip1 <= 223 and ip1 >= 1 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
+if int(ip1) <= 223 and int(ip1) >= 1 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
     print ("unicast")
-elif ip1 >= 224 and ip1 <= 239 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
+elif int(ip1) >= 224 and int(ip1) <= 239 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
     print("multicast")
 elif format == "255.255.255.255":
     print("local broadcast")
@@ -31,17 +31,18 @@ elif format == "0.0.0.0":
     print("unassigned")
 else:
     print('unused')
+'''
+Введите IP-адреса в формате 10.0.1.1: 1.1.1.1
+unicast
+'''
 
 """2-ой вариант"""
 try:
-   format = input('Введите IP-адреса в формате 10.0.1.1: ')
-   ip1,ip2,ip3,ip4 = format.split('.')
-except (ValueError, TypeError, NameError):
-    print("unused")
-else:  
-    if ip1 <= 223 and ip1 >= 1 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
+    format = input('Введите IP-адреса в формате 10.0.1.1: ')
+    ip1,ip2,ip3,ip4 = format.split('.')
+    if int(ip1) <= 223 and int(ip1) >= 1 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
         print ("unicast")
-    elif ip1 >= 224 and ip1 <= 239 and ip2 <= 255 and ip3 <= 255 and ip4 <= 255:
+    elif int(ip1) >= 224 and int(ip1) <= 239 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
         print("multicast")
     elif format == "255.255.255.255":
         print("local broadcast")
@@ -49,3 +50,10 @@ else:
         print("unassigned")
     else:
         print('unused')
+except (ValueError, TypeError, NameError):
+    print("unused")
+'''
+Введите IP-адреса в формате 10.0.1.1: 1.1.1.1
+unicast
+'''
+

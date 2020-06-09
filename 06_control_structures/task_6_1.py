@@ -20,3 +20,6 @@ mac_cisco = []
 for macs in mac:
     mac_cisco.append(macs.replace(':','.'))
 print(mac_cisco)
+'''
+['aabb.cc80.7000', 'aabb.dd80.7340', 'aabb.ee80.7000', 'aabb.ff80.7000']
+'''

@@ -25,9 +25,9 @@ src_file, dst_file = argv[1:]
 ignore = ['duplex', 'alias', 'Current configuration']
 
 with open(src_file) as src, open(dst_file, 'w') as dst:      
-    for line in src.read().split('\n'):     
-        for item in ignore:
-            if item in line:
-                break
+    for line in src:
+        for line2 in ignore:
+            if line2 in line:
+                break 
         else:
-            dst.write(line +'\n')
+            dst.write(line.strip())

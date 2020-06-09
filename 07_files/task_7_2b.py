@@ -17,17 +17,10 @@
 
 ignore = ['duplex', 'alias', 'Current configuration']
 
-config_sw1_cleared = []
-
-f = open('config_sw1.txt')
-for line in f.read().split('\n'):        
-    for item in ignore:
-        if item in line:
-            break
-    else:
-        config_sw1_cleared.append(line + '\n')
-  
-k = open('config_sw1_cleared.txt', 'w')
-k.writelines(config_sw1_cleared)
-f.close()
-k.close()
+with open('config_sw1.txt') as src, open('config_sw1_cleared.txt', 'w') as dst:
+    for line in src:
+        for line2 in ignore:
+            if line in line2:
+                break
+        else:
+            dst.write(line.strip())

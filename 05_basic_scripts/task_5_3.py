@@ -47,16 +47,6 @@ switchport trunk allowed vlan 2,3,4,5
 
 #!/usr/bin/env python3
 
-"""1ый вариант"""
-mode = input('Введите режим работы интерфейса (access/trunk): ')
-inter = input('Введите тип и номер интерфейса (Fa0/1): ')
-
-template2 = {
-             'access': 'Введите номер VLAN:',
-             'trunk': 'Введите разрешенные VLANы:'}
-             
-vlan = input('{}'. format(template2[mode]))
-
 access_template = [
     'switchport mode access', 'switchport access vlan {}',
     'switchport nonegotiate', 'spanning-tree portfast',
@@ -68,38 +58,23 @@ trunk_template = [
     'switchport trunk allowed vlan {}'
 ]
 
-template = {'access': access_template, 
-             'trunk': trunk_template
-             }
+template = {'access': access_template, 'trunk': trunk_template
+}
 
-print('interface {}'.format(inter))
+mode = input('Введите режим работы интерфейса: ')
+inter = input('Введите тип и номер интерфейса: ')
+vlan = input('Введите номер влан(ов): ')
+
+print('Interface {}'.format(inter))
 print('\n'.join(template[mode]).format(vlan))
-
-
-"""2ой вариант"""
-access_template = [
-    'switchport mode access', 'switchport access vlan {}',
-    'switchport nonegotiate', 'spanning-tree portfast',
-    'spanning-tree bpduguard enable'
-]
-
-trunk_template = [
-    'switchport trunk encapsulation dot1q', 'switchport mode trunk',
-    'switchport trunk allowed vlan {}'
-]
-
-template = {'access': access_template, 
-             'trunk': trunk_template,
-             'vlanaccess': 'Введите номер VLAN:',
-             'vlantrunk': 'Введите разрешенные VLANы:'
-             }
-
-mode = input('Введите режим работы интерфейса (access/trunk): ')
-inter = input('Введите тип и номер интерфейса (Fa0/1): ')
-
-mode_vlan = 'vlan' + mode
-
-vlan = input('{}'. format(template[mode_vlan]))
-
-print('interface {}'.format(inter))
-print('\n'.join(template[mode]).format(vlan))
+'''
+Введите режим работы интерфейса: access
+Введите тип и номер интерфейса: Fa0/1
+Введите номер влан(ов): 10
+Interface Fa0/1
+switchport mode access
+switchport access vlan 10
+switchport nonegotiate
+spanning-tree portfast
+spanning-tree bpduguard enable
+'''

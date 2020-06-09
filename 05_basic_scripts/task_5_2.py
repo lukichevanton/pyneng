@@ -77,3 +77,15 @@ mask1,mask2,mask3,mask4 = mask.split('.')
 
 print("{:8} {:8} {:8} {:8}".format(mask1,mask2,mask3,mask4))
 print("{:08b} {:08b} {:08b} {:08b}".format(int(mask1),int(mask2),int(mask3),int(mask4)))
+'''
+Введите IP-сеть в формате (10.1.1.0/24):  1.1.1.0/24
+Network:
+1        1        1        0       
+00000001 00000001 00000001 00000000
+
+
+Mask
+/24
+255      255      255      0       
+11111111 11111111 11111111 00000000
+'''

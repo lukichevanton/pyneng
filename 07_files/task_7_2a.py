@@ -16,13 +16,12 @@
 
 ignore = ['duplex', 'alias', 'Current configuration']
 
-f = open('config_sw1.txt')
-
-for line in f.read().split('\n'):
-    if line.startswith('!'):
-        continue
-    for item in ignore:
-        if item in line:
-            break
-    else:
-        print(line)
+with open('config_sw1.txt', 'r') as f:
+    for line in f:
+        if line.startswith('!'):
+            continue
+        for line2 in ignore:
+            if line in line2:
+                break
+        else:
+            print(line.strip())

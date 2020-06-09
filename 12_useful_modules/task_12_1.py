@@ -19,7 +19,7 @@
 
 import subprocess
 
-address = ['8.8.8.8','1.2.3.4', '1.1.1.1', '1.2.3.5']
+address = ['8.8.8.8', '1.2.3.4', '1.1.1.1', '1.2.3.5']
 
 def ping_ip_addresses(ip_address):
 	result = []
