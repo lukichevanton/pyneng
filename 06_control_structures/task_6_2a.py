@@ -17,7 +17,8 @@
 
 #!/usr/bin/env python3
 
-"""1ый вариант"""
+'''1ый вариант'''
+
 try:
     format = input('Введите IP-адреса в формате 10.0.1.1: ')
     ip1,ip2,ip3,ip4 = format.split('.')
@@ -35,12 +36,9 @@ try:
        print('unused')
 except (ValueError, TypeError, NameError):
     print("Неправильный IP-адрес")
-'''
-Введите IP-адреса в формате 10.0.1.1: 1.1.1.1
-unicast
-'''
 
-"""2ой вариант"""
+'''2ой вариант'''
+
 try:
     format = input('Введите IP-адреса в формате 10.0.1.1: ')
     ip = [int(a) for a in format.split('.')]
@@ -59,6 +57,7 @@ try:
         print('unused')
 except (ValueError, TypeError, NameError):
     print("Неправильный IP-адрес")
+    
 '''
 Введите IP-адреса в формате 10.0.1.1: 1.1.1.1
 unicast

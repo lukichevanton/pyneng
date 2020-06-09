@@ -75,19 +75,6 @@ for intf, vlan in trunk.items():
 
 for intf, vlan in trunk.items():
     print('interface FastEthernet' + intf)
-    for command in trunk_template:
-        if command.endswith('allowed vlan'):
-            if vlan[0] == 'add' or vlan[0] == 'del':
-                print(' {} {} {}'.format(command, vlan[0].replace('del','remove'),','.join(vlan[1:])))
-            elif vlan[0] == 'only':
-                print(' {} {}'.format(command, ','.join(vlan[1:])))
-        else:
-            print(' {}'.format(command))
-
-'''3ий вариант'''
-
-for intf, vlan in trunk.items():
-    print('interface FastEthernet' + intf)
     for trunk_command in trunk_template:
         if trunk_command.endswith('allowed vlan'):
             if vlan[0] == 'add':
@@ -114,5 +101,3 @@ interface FastEthernet0/4
  switchport mode trunk
  switchport trunk allowed vlan remove 17
  '''
-
-

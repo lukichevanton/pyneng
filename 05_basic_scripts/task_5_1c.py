@@ -52,22 +52,21 @@ london_co = {
 }
 
 '''1-ый вариант'''
+
 dev = input('Введите имя устройства: ')
 param = input('Введите имя параметра ({}): '.format(','.join(list(london_co[dev].keys()))))
 print(london_co[dev].get(param,'Такого параметра нет'))
-'''
-Введите имя устройства: r1
-Введите имя параметра (location,vendor,model,ios,ip): ipp
-Такого параметра нет
-'''
 
-'''2-ой вариант'''
+
+'''2ой вариант'''
+
 try:
     dev = input('Введите имя устройства: ') 
     param = input('Введите имя параметра ({}): '.format(','.join(london_co[dev].keys())))
     print(london_co[dev][param])
 except KeyError:
     print('Такого устройства или параметра нет')
+
 '''
 Введите имя устройства: r1
 Введите имя параметра (location,vendor,model,ios,ip): ipp

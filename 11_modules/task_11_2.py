@@ -84,7 +84,6 @@ def create_network_map(filenames):
 result = create_network_map(cdp)
 
 draw_topology(result)
-
 '''
       $ python task_11_2.py 
 Graph saved in img/topology.svg

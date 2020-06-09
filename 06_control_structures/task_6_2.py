@@ -17,10 +17,10 @@
 
 #!/usr/bin/env python3
 
-"""1-ый вариант"""
+'''1ый вариант'''
+
 format = input('Введите IP-адреса в формате 10.0.1.1: ')
 ip1,ip2,ip3,ip4 = format.split('.')
-
 if int(ip1) <= 223 and int(ip1) >= 1 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
     print ("unicast")
 elif int(ip1) >= 224 and int(ip1) <= 239 and int(ip2) <= 255 and int(ip3) <= 255 and int(ip4) <= 255:
@@ -31,12 +31,9 @@ elif format == "0.0.0.0":
     print("unassigned")
 else:
     print('unused')
-'''
-Введите IP-адреса в формате 10.0.1.1: 1.1.1.1
-unicast
-'''
 
-"""2-ой вариант"""
+'''2-ой вариант'''
+
 try:
     format = input('Введите IP-адреса в формате 10.0.1.1: ')
     ip1,ip2,ip3,ip4 = format.split('.')
@@ -52,6 +49,7 @@ try:
         print('unused')
 except (ValueError, TypeError, NameError):
     print("unused")
+
 '''
 Введите IP-адреса в формате 10.0.1.1: 1.1.1.1
 unicast

@@ -60,5 +60,6 @@ def generate_trunk_config(intf_vlan_mapping, trunk_template):
     print(template)
     return(template)    
 generate_trunk_config(trunk_config,trunk_mode_template)
-
+'''
 ['interface FastEthernet0/1', 'switchport mode trunk', 'switchport trunknative vlan 999', 'switchport trunk allowed vlan 10,20,30', 'interface FastEthernet0/2', 'switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 11,30', 'interface FastEthernet0/4', 'switchport mode trunk', 'switchport trunk native vlan 999', 'switchport trunk allowed vlan 17']
+'''
