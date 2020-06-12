@@ -46,18 +46,13 @@ london_co = {
     }
 }
 
-'''1-ый вариант'''
+'''1ый вариант'''
 
 dev = input('Введите имя устройства: ')
 param = input('Введите имя параметра ({}): '.format(','.join(list(london_co[dev].keys()))))
 print(london_co[dev].get(param.upper().lower(),'Такого параметра нет'))
-'''
-Введите имя устройства: r1
-Введите имя параметра (location,vendor,model,ios,ip): IP
-10.255.0.1
-'''
 
-'''2-ой вариант'''
+'''2ой вариант'''
 
 try:
     dev = input('Введите имя устройства: ') 

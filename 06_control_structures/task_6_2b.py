@@ -13,6 +13,7 @@
 #!/usr/bin/env python3
 
 '''1ый вариант'''
+
 while True:
     try:
         format = input('Введите IP-адреса в формате 10.0.1.1: ')
@@ -35,7 +36,8 @@ while True:
     except (ValueError, TypeError, NameError):
         print("Неправильный IP-адрес")
             
-'''2ой вариант'''         
+'''2ой вариант''' 
+       
 while True:
     format = input('Введите IP-адреса в формате 10.0.1.1: ')
     try:

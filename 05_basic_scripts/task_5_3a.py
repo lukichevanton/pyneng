@@ -13,7 +13,7 @@
 
 #!/usr/bin/env python3
 
-"""1ый вариант"""
+'''1ый вариант'''
 access_template = [
     'switchport mode access', 'switchport access vlan {}',
     'switchport nonegotiate', 'spanning-tree portfast',
@@ -52,7 +52,7 @@ spanning-tree portfast
 spanning-tree bpduguard enable
 '''
 
-"""2ой вариант"""
+'''2ой вариант'''
 access_template = [
     'switchport mode access', 'switchport access vlan {}',
     'switchport nonegotiate', 'spanning-tree portfast',
