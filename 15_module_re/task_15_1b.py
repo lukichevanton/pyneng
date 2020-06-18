@@ -25,3 +25,31 @@ Ethernet0/1 соответствует список из двух кортеже
 диапазоны адресов и так далее, так как обрабатывается вывод команды, а не ввод пользователя.
 
 """
+
+#!/usr/bin/env python3
+
+from sys import argv
+
+file_txt = argv[1:]
+
+import re
+
+def get_ip_from_cfg(filename):
+    result = {}
+    with open(filename) as f:
+        for line in f:
+            if line.startswith('interface'):
+                intf = re.search('\S+$', line).group()
+                final = [] 
+            elif 'ip address' in line:
+                match = re.search(' ip address (\d+\.\d+\.\d+\.\d+) +(\d+\.\d+\.\d+\.\d+)', line)
+                if match:
+                    result[intf] = {}
+                    final.append(match.groups())
+                    result[intf] = final        
+    return(result)
+result = get_ip_from_cfg(file_txt[0])
+print(result)
+'''
+{'Ethernet0/1': [('10.255.2.2', '255.255.255.0'), ('10.254.2.2', '255.255.255.0')], 'Ethernet0/0': [('10.0.23.2', '255.255.255.0')], 'Ethernet0/2': [('10.0.29.2', '255.255.255.0')], 'Loopback0': [('10.2.2.2', '255.255.255.255')]}
+'''

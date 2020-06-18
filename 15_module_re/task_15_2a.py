@@ -26,4 +26,21 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
 
+#!/usr/bin/env python3
+
+import re
+
 headers = ["interface", "address", "status", "protocol"]
+
+data = [('FastEthernet0/0', '15.0.15.1', 'up', 'up'), ('FastEthernet0/1', '10.0.12.1', 'up', 'up'), ('FastEthernet0/2', '10.0.13.1', 'up', 'up'), ('FastEthernet0/3', 'unassigned', 'administratively down', 'down'), ('Loopback0', '10.1.1.1', 'up', 'up'), ('Loopback100', '100.0.0.1', 'up', 'up')]
+
+def convert_to_dict(filename, filename2):
+    final = {}
+    for line in filename:
+        for line2 in filename2:
+            for line3 in line2:
+                final[line] = {}
+                final[line] = line3
+    return(final)
+result = convert_to_dict(headers, data)
+print(result)
