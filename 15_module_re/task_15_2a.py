@@ -35,12 +35,15 @@ headers = ["interface", "address", "status", "protocol"]
 data = [('FastEthernet0/0', '15.0.15.1', 'up', 'up'), ('FastEthernet0/1', '10.0.12.1', 'up', 'up'), ('FastEthernet0/2', '10.0.13.1', 'up', 'up'), ('FastEthernet0/3', 'unassigned', 'administratively down', 'down'), ('Loopback0', '10.1.1.1', 'up', 'up'), ('Loopback100', '100.0.0.1', 'up', 'up')]
 
 def convert_to_dict(filename, filename2):
-    final = {}
-    for line in filename:
-        for line2 in filename2:
-            for line3 in line2:
-                final[line] = {}
-                final[line] = line3
-    return(final)
+    result = []
+    for line in filename2:
+        final = {}
+        for line2 in range(4):
+            final[filename[line2]] = line[line2]
+        result.append(final)
+    return(result)
 result = convert_to_dict(headers, data)
 print(result)
+'''
+[{'interface': 'FastEthernet0/0', 'address': '15.0.15.1', 'status': 'up', 'protocol': 'up'}, {'interface': 'FastEthernet0/1', 'address': '10.0.12.1', 'status': 'up', 'protocol': 'up'}, {'interface': 'FastEthernet0/2', 'address': '10.0.13.1', 'status': 'up', 'protocol': 'up'}, {'interface': 'FastEthernet0/3', 'address': 'unassigned', 'status': 'administratively down', 'protocol': 'down'}, {'interface': 'Loopback0', 'address': '10.1.1.1', 'status': 'up', 'protocol': 'up'}, {'interface': 'Loopback100', 'address': '100.0.0.1', 'status': 'up', 'protocol': 'up'}]
+'''
