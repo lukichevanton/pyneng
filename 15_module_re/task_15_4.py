@@ -22,3 +22,29 @@ interface Loopback0
 
 Проверить работу функции на примере файла config_r1.txt.
 """
+
+import re
+
+def get_ints_without_description(filename):
+    all_intf = []#['Loopback0', 'Tunnel0', 'Ethernet0/0', 'Ethernet0/1', 'Ethernet0/2', 'Ethernet0/3', 'Ethernet0/3.100', 'Ethernet1/0']
+    desc_intf = []#['Ethernet0/0', 'Ethernet0/2', 'Ethernet0/3']
+    nodesc_intf = []
+    with open(filename) as f:
+        for line in f:
+            if line.startswith('interface'):
+                match = re.search('interface (?P<intf>\S+)', line)
+                if match:
+                    all_intf.append(match.group(1))#добавляяем все интерфейсы, без исключения в список all_intf
+            elif ' description' in line:
+                desc_intf.append(match.group(1))#добавляем интерфейсы с description в список desc_intf
+        for line in all_intf:#делаем сравнение двух списков
+            if line in desc_intf:
+                continue
+            else:
+                nodesc_intf.append(line)#создаем новый список интерфейсов без description
+    return(nodesc_intf)
+result = get_ints_without_description('config_r1.txt')
+print(result)
+'''
+['Loopback0', 'Tunnel0', 'Ethernet0/1', 'Ethernet0/3.100', 'Ethernet1/0']
+'''
