@@ -24,10 +24,7 @@
 
 #!/usr/bin/env python3
 
-from sys import argv
-
-file_txt = argv[1:]
-
+from pprint import pprint
 import re
 
 def parse_sh_ip_int_br(filename):
@@ -38,8 +35,13 @@ def parse_sh_ip_int_br(filename):
 			if match:
 				final.append(match.groups())     
 		return(final)
-result = parse_sh_ip_int_br(file_txt[0])
-print(result)
+result = parse_sh_ip_int_br('sh_ip_int_br.txt')
+pprint(result)
 '''
-[('FastEthernet0/0', '15.0.15.1', 'up', 'up'), ('FastEthernet0/1', '10.0.12.1', 'up', 'up'), ('FastEthernet0/2', '10.0.13.1', 'up', 'up'), ('FastEthernet0/3', 'unassigned', 'administratively down', 'down'), ('Loopback0', '10.1.1.1', 'up', 'up'), ('Loopback100', '100.0.0.1', 'up', 'up')]
-'''
+[('FastEthernet0/0', '15.0.15.1', 'up', 'up'),
+ ('FastEthernet0/1', '10.0.12.1', 'up', 'up'),
+ ('FastEthernet0/2', '10.0.13.1', 'up', 'up'),
+ ('FastEthernet0/3', 'unassigned', 'administratively down', 'down'),
+ ('Loopback0', '10.1.1.1', 'up', 'up'),
+ ('Loopback100', '100.0.0.1', 'up', 'up')]
+ '''

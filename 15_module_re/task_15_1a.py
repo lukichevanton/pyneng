@@ -25,10 +25,7 @@
 
 #!/usr/bin/env python3
 
-from sys import argv
-
-file_txt = argv[1:]
-
+from pprint import pprint
 import re
 
 def get_ip_from_cfg(filename):
@@ -36,15 +33,17 @@ def get_ip_from_cfg(filename):
     with open(filename) as f:
         for line in f:
             if line.startswith('interface'):
-                intf = re.search('\S+$', line).group()
+                intf = re.search(r'\S+$', line).group()
             elif 'ip address' in line:
-                ip_mask = re.search('(\d+\.\d+\.\d+\.\d+) +(\d+\.\d+\.\d+\.\d+)', line)
+                ip_mask = re.search(r'(\d+\.\d+\.\d+\.\d+) +(\d+\.\d+\.\d+\.\d+)', line)
                 if ip_mask:
                     result[intf] = {}
                     result[intf] = ip_mask.groups()
     return(result)
-result = get_ip_from_cfg(file_txt[0])
-print(result)
+result = get_ip_from_cfg('config_r1.txt')
+pprint(result)
 '''
-{'Loopback0': ('10.1.1.1', '255.255.255.255'), 'Ethernet0/0': ('10.0.13.1', '255.255.255.0'), 'Ethernet0/2': ('10.0.19.1', '255.255.255.0')}
-'''
+{'Ethernet0/0': ('10.0.13.1', '255.255.255.0'),
+ 'Ethernet0/2': ('10.0.19.1', '255.255.255.0'),
+ 'Loopback0': ('10.1.1.1', '255.255.255.255')}
+ '''

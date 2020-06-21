@@ -28,10 +28,7 @@ Ethernet0/1 соответствует список из двух кортеже
 
 #!/usr/bin/env python3
 
-from sys import argv
-
-file_txt = argv[1:]
-
+from pprint import pprint
 import re
 
 def get_ip_from_cfg(filename):
@@ -42,14 +39,18 @@ def get_ip_from_cfg(filename):
                 intf = re.search('\S+$', line).group()
                 final = [] 
             elif 'ip address' in line:
-                match = re.search(' ip address (\d+\.\d+\.\d+\.\d+) +(\d+\.\d+\.\d+\.\d+)', line)
-                if match:
+                ip_mask = re.search(r' ip address (\d+\.\d+\.\d+\.\d+) +(\d+\.\d+\.\d+\.\d+)', line)
+                if ip_mask:
                     result[intf] = {}
-                    final.append(match.groups())
+                    final.append(ip_mask.groups())
                     result[intf] = final        
     return(result)
-result = get_ip_from_cfg(file_txt[0])
-print(result)
+result = get_ip_from_cfg('config_r2.txt')
+pprint(result)
 '''
-{'Ethernet0/1': [('10.255.2.2', '255.255.255.0'), ('10.254.2.2', '255.255.255.0')], 'Ethernet0/0': [('10.0.23.2', '255.255.255.0')], 'Ethernet0/2': [('10.0.29.2', '255.255.255.0')], 'Loopback0': [('10.2.2.2', '255.255.255.255')]}
-'''
+{'Ethernet0/0': [('10.0.23.2', '255.255.255.0')],
+ 'Ethernet0/1': [('10.255.2.2', '255.255.255.0'),
+                 ('10.254.2.2', '255.255.255.0')],
+ 'Ethernet0/2': [('10.0.29.2', '255.255.255.0')],
+ 'Loopback0': [('10.2.2.2', '255.255.255.255')]}
+ '''

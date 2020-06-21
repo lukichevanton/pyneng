@@ -28,7 +28,6 @@ description Connected to SW1 port Eth 0/1
 #!/usr/bin/env python3
 
 from pprint import pprint
-
 import re
 
 def generate_description_from_cdp(filename):

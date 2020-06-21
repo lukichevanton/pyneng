@@ -25,22 +25,25 @@
 
 #!/usr/bin/env python3
 
-from sys import argv
-
-file_txt = argv[1:]
-
+from pprint import pprint
 import re
 
 def get_ip_from_cfg(filename):
     final = []
     with open(filename) as f:
         for line in f:
-            match = re.search('(\d+\.\d+\.\d+\.\d+) +(\d+\.\d+\.\d+\.\d+)', line)
+            match = re.search(r'(\d+\.\d+\.\d+\.\d+) +(\d+\.\d+\.\d+\.\d+)', line)
             if match:
                 final.append(match.groups())
     return(final)
-result = get_ip_from_cfg(file_txt[0])
-print(result)
+result = get_ip_from_cfg('config_r1.txt')
+pprint(result)
 '''
-[('10.1.1.1', '255.255.255.255'), ('10.0.13.1', '255.255.255.0'), ('10.0.19.1', '255.255.255.0'), ('10.0.0.0', '0.255.255.255'), ('10.2.2.2', '255.255.255.255'), ('10.0.0.0', '0.0.255.255'), ('10.0.0.0', '0.255.255.255')]
-'''
+[('10.1.1.1', '255.255.255.255'),
+ ('10.0.13.1', '255.255.255.0'),
+ ('10.0.19.1', '255.255.255.0'),
+ ('10.0.0.0', '0.255.255.255'),
+ ('10.2.2.2', '255.255.255.255'),
+ ('10.0.0.0', '0.0.255.255'),
+ ('10.0.0.0', '0.255.255.255')]
+ '''

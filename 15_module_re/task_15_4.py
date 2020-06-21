@@ -23,6 +23,9 @@ interface Loopback0
 Проверить работу функции на примере файла config_r1.txt.
 """
 
+#!/usr/bin/env python3
+
+from pprint import pprint
 import re
 
 def get_ints_without_description(filename):
@@ -44,7 +47,7 @@ def get_ints_without_description(filename):
                 nodesc_intf.append(line)#создаем новый список интерфейсов без description
     return(nodesc_intf)
 result = get_ints_without_description('config_r1.txt')
-print(result)
+pprint(result)
 '''
 ['Loopback0', 'Tunnel0', 'Ethernet0/1', 'Ethernet0/3.100', 'Ethernet1/0']
 '''

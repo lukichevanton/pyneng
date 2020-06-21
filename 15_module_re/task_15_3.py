@@ -35,15 +35,15 @@ object network LOCAL_10.1.9.5
 #!/usr/bin/env python3
 
 from pprint import pprint
-
 import re
-
 template = ['object network LOCAL_{}',
-        ' host {}',
-        ' nat (inside,outside) static interface service tcp {} {}']
-
+        	' host {}',
+        	' nat (inside,outside) static interface service tcp {} {}']
 def convert_ios_nat_to_asa(filename, filename2):
     final = []
+    template = ['object network LOCAL_{}',
+        	' host {}',
+        	' nat (inside,outside) static interface service tcp {} {}']
     regex = re.compile(r'(?P<ip>[\d\.]+\d) '
                     r'(?P<port1>\d+) \w+ \S+ '
                     r'(?P<port2>\d+)')
@@ -58,7 +58,6 @@ def convert_ios_nat_to_asa(filename, filename2):
                 dest.write('\n'.join(template).format(ip, ip, port1, port2))
 
     return(final)
-
 final = convert_ios_nat_to_asa('cisco_nat_config.txt', 'asa_nat_config.txt')
 pprint(final)
 '''
@@ -70,5 +69,6 @@ pprint(final)
  ' nat (inside,outside) static interface service tcp 20065 20065',
  'object network LOCAL_10.66.0.22\n'
  ' host 10.66.0.22\n'
- ' nat (inside,outside) static interface service tcp 443 44443', ...
+ ' nat (inside,outside) static interface service tcp 443 44443',
+ ...
  '''
