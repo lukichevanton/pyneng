@@ -36,14 +36,14 @@ object network LOCAL_10.1.9.5
 
 from pprint import pprint
 import re
-template = ['object network LOCAL_{}',
-        	' host {}',
-        	' nat (inside,outside) static interface service tcp {} {}']
+
 def convert_ios_nat_to_asa(filename, filename2):
     final = []
-    template = ['object network LOCAL_{}',
-        	' host {}',
-        	' nat (inside,outside) static interface service tcp {} {}']
+    template = [
+        'object network LOCAL_{}', 
+        ' host {}',
+        ' nat (inside,outside) static interface service tcp {} {}\n'#без \n-перевода строки в файл asa_nat_config.txt не пишется object, последняя строчка и следующая сливаются - nat (inside,outside) static interface service tcp 995 995object network LOCAL_10.66.0.21
+        ]
     regex = re.compile(r'(?P<ip>[\d\.]+\d) '
                     r'(?P<port1>\d+) \w+ \S+ '
                     r'(?P<port2>\d+)')
