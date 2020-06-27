@@ -68,7 +68,6 @@ def get_ints_without_description(filename):
 result = get_ints_without_description('config_r1.txt')
 pprint(result)
 
-
 '''
 ['Loopback0', 'Tunnel0', 'Ethernet0/1', 'Ethernet0/3.100', 'Ethernet1/0']
 '''
