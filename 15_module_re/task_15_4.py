@@ -25,6 +25,8 @@ interface Loopback0
 
 #!/usr/bin/env python3
 
+'''1ый вариант'''
+
 from pprint import pprint
 import re
 
@@ -48,6 +50,25 @@ def get_ints_without_description(filename):
     return(nodesc_intf)
 result = get_ints_without_description('config_r1.txt')
 pprint(result)
+
+'''2ой вариант'''
+
+from pprint import pprint
+import re
+
+def get_ints_without_description(filename):
+    result = []
+    with open(filename) as f:
+        filename = f.read()
+        regex = (r'interface (\w+\S+\d+). [^d]\S+')
+        match = re.finditer(regex, filename, re.DOTALL)
+        for m in match:
+            result.append(m.group(1))
+    return(result)
+result = get_ints_without_description('config_r1.txt')
+pprint(result)
+
+
 '''
 ['Loopback0', 'Tunnel0', 'Ethernet0/1', 'Ethernet0/3.100', 'Ethernet1/0']
 '''
