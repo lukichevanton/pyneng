@@ -61,7 +61,7 @@ def get_ints_without_description(filename):
     with open(filename) as f:
         filename = f.read()
         regex = (r'interface (\w+\S+\d+). [^d]\S+')#берется две строки подряд, в первой должно быть имя интерфейса, а во второй не должно быть ' description'
-        match = re.finditer(regex, filename, re.DOTALL)#ищутся совпадения в ффайле, re.DOTALL позволяет читать . точку как перенос строки
+        match = re.finditer(regex, filename, re.DOTALL)#ищутся совпадения в файле, re.DOTALL позволяет читать . точку как перенос строки
         for m in match:
             result.append(m.group(1))
     return(result)
