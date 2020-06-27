@@ -60,14 +60,13 @@ def get_ints_without_description(filename):
     result = []
     with open(filename) as f:
         filename = f.read()
-        regex = (r'interface (\w+\S+\d+). [^d]\S+')
-        match = re.finditer(regex, filename, re.DOTALL)
+        regex = (r'interface (\w+\S+\d+). [^d]\S+')#берется две строки подряд, в первой должно быть имя интерфейса, а во второй не должно быть ' description'
+        match = re.finditer(regex, filename, re.DOTALL)#ищутся совпадения в ффайле, re.DOTALL позволяет читать . точку как перенос строки
         for m in match:
             result.append(m.group(1))
     return(result)
 result = get_ints_without_description('config_r1.txt')
 pprint(result)
-
 '''
 ['Loopback0', 'Tunnel0', 'Ethernet0/1', 'Ethernet0/3.100', 'Ethernet1/0']
 '''
