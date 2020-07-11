@@ -38,8 +38,7 @@ def parse_sh_cdp_neighbors(data_filenames):
     def parse_sh_cdp_neighbors(line):
         final2 = {}#{'Eth 0/1': {'R1': 'Eth 0/0'}, 'Eth 0/2': {'R2': 'Eth 0/0'}, 'Eth 0/3': {'R3': 'Eth 0/0'}, 'Eth 0/4': {'R4': 'Eth 0/0'}}
         final3 = {}
-        loc_dev = line.split('>')[0].strip('\n')#'\nSW1', .strip('\n') убирает \n пробел, в итоге получается 'SW1'
-        
+        loc_dev = line.split('>')[0].strip('\n')#'\nSW1', .strip('\n') убирает \n пробел, в итоге получается 'SW1'     
         result = re.finditer(r'(?P<rem_dev>\w+\d+) +?'
                             r'(?P<loc_intf>\w+ \S+) +\d+.+? \d+ +'
                             r'(?P<rem_intf>\w+ \S+)', line)#('R1', 'Eth 0/1', 'Eth 0/0')
