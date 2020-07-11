@@ -32,7 +32,7 @@ import re
 
 def parse_sh_cdp_neighbors(data_filenames):
 
-    f = open('sh_cdp_n_sw1.txt')
+    f = open(data_filenames)
     f = f.read()#читаем файл в одну строку и передаем функции parse_sh_version
 
     def parse_sh_cdp_neighbors(line):
