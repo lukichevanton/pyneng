@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from pprint import pprint
 import sqlite3
 import sys
 from tabulate import tabulate 
