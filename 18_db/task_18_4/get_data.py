@@ -12,7 +12,7 @@ try:
 	value = sys.argv[2]
 	error = sys.argv[3:]
 	if error:
-		print('\nПожалуйста, введите два или ноль аргументов')
+		print('\nПожалуйста, введите два или ноль аргументов\n')
 		'''
 		$ python get_data.py ip vlan 10
 
@@ -71,18 +71,20 @@ try:
 		-----------------  ----------  --  ---------------  ---  -
 		'''
 except sqlite3.OperationalError:
-	print('\nДанный параметр не поддерживается.')
-	print('Допустимые значения параметров: mac, ip, vlan, interface, switch, active')
+	print('\nДанный параметр не поддерживается\n')
+	print('Допустимые значения параметров: mac, ip, vlan, interface, switch, active\n')
 	'''
 	$ python get_data.py vln 10
 
 	Данный параметр не поддерживается.
+
 	Допустимые значения параметров: mac, ip, vlan, interface, switch, active
 	'''
 except IndexError:
 	print('\nПожалуйста, введите два или ноль аргументов\n')
-	print('Допустимые значения параметров: mac, ip, vlan, interface, switch, active')
-	print('\nВ таблице dhcp такие записи:\n')
+	print('Допустимые значения параметров: mac, ip, vlan, interface, switch, active\n')
+	print('В таблице dhcp такие записи:')
+
 	query = 'select * from dhcp where active = 1'
 	result = conn.execute(query)
 	print('\nАктивные записи:\n')
@@ -92,6 +94,8 @@ except IndexError:
 	print('\nНеактивные записи:\n')
 	print(tabulate(result2))
 	'''
+	20:54 $ python get_data.py
+
 	Пожалуйста, введите два или ноль аргументов
 
 	Допустимые значения параметров: mac, ip, vlan, interface, switch, active
@@ -99,6 +103,7 @@ except IndexError:
 	В таблице dhcp такие записи:
 
 	Активные записи:
+
 	-----------------  ----------  --  ----------------  ---  -
 	00:09:BB:3D:D6:58  10.1.10.2   10  FastEthernet0/1   sw1  1
 	00:04:A3:3E:5B:69  10.1.15.2   15  FastEthernet0/15  sw1  1
@@ -111,7 +116,9 @@ except IndexError:
 	00:A9:BC:3F:A6:50  10.1.10.65  20  FastEthernet0/2   sw2  1
 	00:A9:33:44:A6:50  10.1.10.77  10  FastEthernet0/4   sw2  1
 	-----------------  ----------  --  ----------------  ---  -
+
 	Неактивные записи:
+
 	-----------------  ---------------  -  ---------------  ---  -
 	00:09:BC:3F:A6:50  192.168.100.100  1  FastEthernet0/7  sw1  0
 	00:C5:B3:7E:9B:60  10.1.5.40        5  FastEthernet0/9  sw2  0
