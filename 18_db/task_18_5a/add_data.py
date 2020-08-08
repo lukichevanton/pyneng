@@ -61,7 +61,8 @@ def switches_dhcp(switches, dhcp):
             with conn:
                 query = '''REPLACE INTO switches VALUES (?, ?)'''#самое первое добавлении данных и в случае добаления одного и того 'hostname' обновляет все значения в полях.
                 conn.execute(query, row)
-    
+                
+        #Добавление новых данных.
         final_dhcp = []
         regex = re.compile(r'(?P<mac>^\S+\d+) +'
                                 r'(?P<ip>\S+\d+).+snooping +'

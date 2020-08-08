@@ -89,6 +89,7 @@ except IndexError:
 	result = conn.execute(query)
 	print('\nАктивные записи:\n')
 	print(tabulate(result))
+	
 	query2 = 'select * from dhcp where active = 0'
 	result2 = conn.execute(query2)
 	print('\nНеактивные записи:\n')
