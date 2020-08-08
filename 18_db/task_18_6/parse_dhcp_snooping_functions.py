@@ -12,6 +12,7 @@ from datetime import timedelta, datetime
 ''''''''''''''''''''''''''''''''''''''''''
 
 def create_db(name, schema):
+	
     db_exists = os.path.exists(name)
     conn = sqlite3.connect(name)
     if not db_exists:
