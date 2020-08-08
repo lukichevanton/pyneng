@@ -100,8 +100,8 @@ def switches_dhcp(switches, dhcp):
             query = '''select * from dhcp '''
             result = conn.execute(query)
             print(tabulate(result))
-
         conn.close()
+        
 switches_dhcp(yml_filename, dhcp_snooping_files)
 '''
 21:13 $ python add_data.py 
