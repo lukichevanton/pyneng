@@ -23,7 +23,6 @@ try:
 		query2 = 'select * from dhcp where {} = ? and active = 0 '.format(key)
 		result = conn.execute(query, (value, ))
 		result2 = conn.execute(query2, (value, ))
-
 		print('\nИнформация об устройствах с такими параметрами:', key, value)
 
 		if tabulate(result):#если в поле 'active' 1 (единица), то выводить запрос
