@@ -17,12 +17,9 @@
 """
 #!/usr/bin/env python3
 
-from pprint import pprint
 import yaml
-import socket
 from netmiko import ConnectHandler
 from netmiko.ssh_exception import NetMikoTimeoutException
-from paramiko.ssh_exception import SSHException
 from netmiko.ssh_exception import NetmikoAuthenticationException
 
 command = "sh ip int br"
@@ -34,7 +31,7 @@ def send_show_command(device, commands):
 			ssh.enable()
 			output = ssh.send_command(command)
 			result.append(output)
-	except (NetMikoTimeoutException, NetmikoAuthenticationException, socket.timeout) as error:
+	except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
 		print(error)
 	return result
 		
