@@ -29,12 +29,8 @@ def send_show_command(device, commands):
 			ssh.enable()
 			output = ssh.send_command(command)
 			result.append(output)
-	except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
+	except (NetMikoTimeoutException, NetmikoAuthenticationException, socket.timeout) as error:
 		print(error)
-	except socket.timeout as error:
-		print(error)
-
-
 	return result
 		
 if __name__ == "__main__":
