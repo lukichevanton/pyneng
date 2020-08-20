@@ -23,7 +23,7 @@ import socket
 from netmiko import ConnectHandler
 from netmiko.ssh_exception import NetMikoTimeoutException
 from paramiko.ssh_exception import SSHException
-from netmiko.ssh_exception import AuthenticationException
+from netmiko.ssh_exception import NetmikoAuthenticationException
 
 command = "sh ip int br"
 
@@ -34,14 +34,14 @@ def send_show_command(device, commands):
 			ssh.enable()
 			output = ssh.send_command(command)
 			result.append(output)
-	except NetMikoTimeoutException as error:
-		print(error)
-	except NetmikoAuthenticationException as error:
+	except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
 		print(error)
 	except socket.timeout as error:
 		print(error)
+
+
 	return result
-		 
+		
 if __name__ == "__main__":
 	with open("devices2.yaml") as f:
 		devices = yaml.safe_load(f)
