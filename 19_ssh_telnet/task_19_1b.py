@@ -20,7 +20,7 @@ from netmiko.ssh_exception import NetmikoAuthenticationException
 
 command = "sh ip int br"
 
-def send_show_command(device, commands):
+def send_show_command(device, commands, log=False):
 	result = []
 	try:
 		with ConnectHandler(**device) as ssh:
