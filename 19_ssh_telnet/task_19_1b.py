@@ -25,7 +25,7 @@ def send_show_command(device, commands):
 	try:
 		with ConnectHandler(**device) as ssh:
 			ssh.enable()
-			output = ssh.send_command(command)
+			output = ssh.send_command(commands)
 			result.append(output)
 	except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
 		print(error)
