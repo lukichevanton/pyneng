@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 """
 Задание 19.2b
 
@@ -119,33 +119,46 @@ def ignore_command(command, ignore):
     return any(word in command for word in ignore)
 
 def send_config_commands(device, config_commands, log=False):
-    result = []
-    result_good = []
-    result_bad = []
+
+    result_good = {}
+    result_bad = {}
     try:
         with ConnectHandler(**device) as ssh:
             ssh.enable()
-            output = ssh.send_command(config_commands)
-            result.append(output)
-            if log:
-                for line in result:
-                    print(line)
+            for com in config_commands:
+                output = ssh.send_config_set(com)
+                for line2 in ignore:#бделаем исключения из списка без использования функции ignore_command
+                    if line2 in output:
+                        result_bad[com] = output
+                        #print('Команда "{}" выполнилась с ошибкой "{}" на устройстве 192.168.100.1'.format(com, line2))
+                    else:
+                        result_good[com] = output
+
+        return result_good, result_bad
+
     except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
-        if log:
-            print(error)
-            
-    for line in result:
-        for 
+        pass
+    #print(result)
+if __name__ == "__main__":
+    with open("devices2.yaml") as f:
+        devices = yaml.safe_load(f)
+    for device in devices:
+        final = send_config_commands(device, commands)
+        pprint(final)
+
+
+
+'''
+if ignore_command(output, ignore):
+for line in result:
+        for line2 in line:
         if ignore_command(line, ignore):
             result_bad.append(output)
         else:
             result_good.append(output)
-    print(result)
-    print(result_error)
-    return result, result_error
-		
-if __name__ == "__main__":
-	with open("devices2.yaml") as f:
-		devices = yaml.safe_load(f)
-	for device in devices:
-		final = send_config_commands(device, commands)
+            
+                if ignore_command(output, ignore):
+                        result_bad[com] = output
+                else:
+                    result_good[com] = output
+            '''

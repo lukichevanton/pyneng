@@ -24,28 +24,25 @@ In [15]:
 commands = ["logging 10.255.255.1", "logging buffered 20010", "no logging console"]
 
 import yaml
-from pprint import pprint
 from netmiko import ConnectHandler
 from netmiko.ssh_exception import NetMikoTimeoutException
 from netmiko.ssh_exception import NetmikoAuthenticationException
 
-def send_config_commands(device, config_commands, log=False):
-    result = []
-    try:
-        with ConnectHandler(**device) as ssh:
-            ssh.enable()
-            output = ssh.send_config_set(config_commands)
-            result.append(output)
-            if log:
-                for line in result:
-                    print(line)
-    except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
-        if log:
-            print(error)
+def send_config_commands(device, config_commands):
+	result = []
+	try:
+		with ConnectHandler(**device) as ssh:
+			ssh.enable()
+			output = ssh.send_config_set(config_commands)
+			result.append(output)
+	except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
+        print(error)
     return result
 		
 if __name__ == "__main__":
 	with open("devices2.yaml") as f:
 		devices = yaml.safe_load(f)
 	for device in devices:
-		final = send_config_commands(device, commands)
+		result = send_config_commands(device, commands)
+		#for line in result:
+		#	print(line)
