@@ -92,9 +92,60 @@ R1(config)#logging
 R1(config)#a
 % Ambiguous command:  "a"
 """
+#!/usr/bin/env python3
 
 # списки команд с ошибками и без:
 commands_with_errors = ["logging 0255.255.1", "logging", "a"]
 correct_commands = ["logging buffered 20010", "ip http server"]
+ignore = ['Invalid input detected', 'Incomplete command', 'Ambiguous command']
 
 commands = commands_with_errors + correct_commands
+
+import yaml
+from pprint import pprint
+from netmiko import ConnectHandler
+from netmiko.ssh_exception import NetMikoTimeoutException
+from netmiko.ssh_exception import NetmikoAuthenticationException
+
+def ignore_command(command, ignore):
+    '''
+    Функция проверяет содержится ли в команде слово из списка ignore.
+    command - строка. Команда, которую надо проверить
+    ignore - список. Список слов
+    Возвращает
+    * True, если в команде содержится слово из списка ignore
+    * False - если нет
+    '''
+    return any(word in command for word in ignore)
+
+def send_config_commands(device, config_commands, log=False):
+    result = []
+    result_good = []
+    result_bad = []
+    try:
+        with ConnectHandler(**device) as ssh:
+            ssh.enable()
+            output = ssh.send_command(config_commands)
+            result.append(output)
+            if log:
+                for line in result:
+                    print(line)
+    except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
+        if log:
+            print(error)
+            
+    for line in result:
+        for 
+        if ignore_command(line, ignore):
+            result_bad.append(output)
+        else:
+            result_good.append(output)
+    print(result)
+    print(result_error)
+    return result, result_error
+		
+if __name__ == "__main__":
+	with open("devices2.yaml") as f:
+		devices = yaml.safe_load(f)
+	for device in devices:
+		final = send_config_commands(device, commands)
