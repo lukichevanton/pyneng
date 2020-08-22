@@ -101,11 +101,12 @@ ignore = ['Invalid input detected', 'Incomplete command', 'Ambiguous command']
 
 commands = commands_with_errors + correct_commands
 
-import yaml
 from pprint import pprint
+import re
+import yaml
+import socket
 from netmiko import ConnectHandler
-from netmiko.ssh_exception import NetMikoTimeoutException
-from netmiko.ssh_exception import NetmikoAuthenticationException
+from netmiko.ssh_exception import NetMikoAuthenticationException, NetMikoTimeoutException
 
 def ignore_command(command, ignore):
     '''
@@ -118,47 +119,98 @@ def ignore_command(command, ignore):
     '''
     return any(word in command for word in ignore)
 
-def send_config_commands(device, config_commands, log=False):
+def send_config_commands(device, config_commands, log=True):
 
+    regex = re.compile(r'.*% (?P<error>.*)')
     result_good = {}
     result_bad = {}
+
     try:
+        if log:
+            print('Подключаюсь к {}...'.format(device['host']))
         with ConnectHandler(**device) as ssh:
             ssh.enable()
             for com in config_commands:
                 output = ssh.send_config_set(com)
-                for line2 in ignore:#бделаем исключения из списка без использования функции ignore_command
-                    if line2 in output:
+                if ignore_command(output, ignore):
+                    final = regex.search(output)
+                    if final:
+                        error = final.group('error')
                         result_bad[com] = output
-                        #print('Команда "{}" выполнилась с ошибкой "{}" на устройстве 192.168.100.1'.format(com, line2))
-                    else:
-                        result_good[com] = output
-
+                        print('Команда "{}" выполнилась с ошибкой "{}" на устройстве {}'.format(com, error, device['host']))                
+                else:
+                    result_good[com] = output
         return result_good, result_bad
+    except (NetMikoAuthenticationException, NetMikoTimeoutException, socket.timeout) as error:
+        if log:
+            print(error)
 
-    except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
-        pass
-    #print(result)
 if __name__ == "__main__":
     with open("devices2.yaml") as f:
         devices = yaml.safe_load(f)
     for device in devices:
-        final = send_config_commands(device, commands)
-        pprint(final)
+        result = send_config_commands(device, commands)
+        '''
+        pprint(result)
+        try:
+            good, bad = result
+            print(bad.keys())
+        except TypeError:
+            pass
+        '''
+'''
+19:31 $ python task_19_2b.py
+Подключаюсь к ios-xe-mgmt-latest.cisco.com...
+Команда "logging 0255.255.1" выполнилась с ошибкой "Invalid input detected at '^' marker." на устройстве ios-xe-mgmt-latest.cisco.com
+Команда "logging" выполнилась с ошибкой "Incomplete command." на устройстве ios-xe-mgmt-latest.cisco.com
+Команда "a" выполнилась с ошибкой "Ambiguous command:  "a"" на устройстве ios-xe-mgmt-latest.cisco.com
+Подключаюсь к 192.168.100.2...
+Connection to device timed-out: cisco_ios 192.168.100.2:22
+Подключаюсь к 192.168.100.3...
+Connection to device timed-out: cisco_ios 192.168.100.3:22
 
+19:31 $ python task_19_2b.py
+Команда "logging 0255.255.1" выполнилась с ошибкой "Invalid input detected at '^' marker." на устройстве ios-xe-mgmt-latest.cisco.com
+Команда "logging" выполнилась с ошибкой "Incomplete command." на устройстве ios-xe-mgmt-latest.cisco.com
+Команда "a" выполнилась с ошибкой "Ambiguous command:  "a"" на устройстве ios-xe-mgmt-latest.cisco.com
 
+({'ip http server': 'config term\n'
+                    'Enter configuration commands, one per line.  End with '
+                    'CNTL/Z.\n'
+                    'csr1000v-1(config)#ip http server\n'
+                    'csr1000v-1(config)#end\n'
+                    'csr1000v-1#',
+  'logging buffered 20010': 'config term\n'
+                            'Enter configuration commands, one per line.  End '
+                            'with CNTL/Z.\n'
+                            'csr1000v-1(config)#logging buffered 20010\n'
+                            'csr1000v-1(config)#end\n'
+                            'csr1000v-1#'},
+ {'a': 'config term\n'
+       'Enter configuration commands, one per line.  End with CNTL/Z.\n'
+       'csr1000v-1(config)#a\n'
+       '% Ambiguous command:  "a"\n'
+       'csr1000v-1(config)#end\n'
+       'csr1000v-1#',
+  'logging': 'config term\n'
+             'Enter configuration commands, one per line.  End with CNTL/Z.\n'
+             'csr1000v-1(config)#logging\n'
+             '% Incomplete command.\n'
+             '\n'
+             'csr1000v-1(config)#end\n'
+             'csr1000v-1#',
+  'logging 0255.255.1': 'config term\n'
+                        'Enter configuration commands, one per line.  End with '
+                        'CNTL/Z.\n'
+                        'csr1000v-1(config)#logging 0255.255.1\n'
+                        '                           ^\n'
+                        "% Invalid input detected at '^' marker.\n"
+                        '\n'
+                        'csr1000v-1(config)#end\n'
+                        'csr1000v-1#'})
+
+ dict_keys(['logging 0255.255.1', 'logging', 'a'])
 
 '''
-if ignore_command(output, ignore):
-for line in result:
-        for line2 in line:
-        if ignore_command(line, ignore):
-            result_bad.append(output)
-        else:
-            result_good.append(output)
-            
-                if ignore_command(output, ignore):
-                        result_bad[com] = output
-                else:
-                    result_good[com] = output
-            '''
+
+

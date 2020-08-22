@@ -18,9 +18,9 @@
 #!/usr/bin/env python3
 
 import yaml
+import socket
 from netmiko import ConnectHandler
-from netmiko.ssh_exception import NetMikoTimeoutException
-from netmiko.ssh_exception import NetmikoAuthenticationException
+from netmiko.ssh_exception import NetMikoAuthenticationException, NetMikoTimeoutException
 
 command = "sh ip int br"
 
@@ -31,10 +31,10 @@ def send_show_command(device, commands):
 			ssh.enable()
 			output = ssh.send_command(commands)
 			result.append(output)
-	except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
+	except (NetMikoAuthenticationException, NetMikoTimeoutException, socket.timeout) as error:
 		print(error)
 	return result
-		
+
 if __name__ == "__main__":
 	with open("devices2.yaml") as f:
 		devices = yaml.safe_load(f)
@@ -42,3 +42,18 @@ if __name__ == "__main__":
 		result = send_show_command(device, command)
 		for line in result:
 			print(line)
+'''
+18:09 $ python task_19_1.py
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet1       10.10.20.48     YES NVRAM  up                    up      
+GigabitEthernet2       192.169.1.1     YES manual up                    up      
+GigabitEthernet3       192.168.6.1     YES other  up                    up      
+Connection to device timed-out: cisco_ios 192.168.100.2:22
+Connection to device timed-out: cisco_ios 192.168.100.3:22
+
+18:13 $ python task_19_1.py
+Authentication failure: unable to connect cisco_ios ios-xe-mgmt-latest.cisco.com:8181
+Authentication failed.
+Connection to device timed-out: cisco_ios 192.168.100.2:22
+Connection to device timed-out: cisco_ios 192.168.100.3:22
+'''

@@ -43,20 +43,20 @@ R1#
 #!/usr/bin/env python3
 
 import yaml
+import socket
 from netmiko import ConnectHandler
-from netmiko.ssh_exception import NetMikoTimeoutException
-from netmiko.ssh_exception import NetmikoAuthenticationException
+from netmiko.ssh_exception import NetMikoAuthenticationException, NetMikoTimeoutException
 
-command = "sh ip int br"
+commands = ["logging 10.255.255.1", "logging buffered 20010", "no logging console"]
 
-def send_show_command(device, commands):
+def send_config_commands(device, config_commands):
 	result = []
 	try:
 		with ConnectHandler(**device) as ssh:
 			ssh.enable()
-			output = ssh.send_command(commands)
+			output = ssh.send_config_set(config_commands)
 			result.append(output)
-	except (NetMikoTimeoutException, NetmikoAuthenticationException) as error:
+	except (NetMikoAuthenticationException, NetMikoTimeoutException, socket.timeout) as error:
 		print(error)
 	return result
 		
@@ -64,6 +64,18 @@ if __name__ == "__main__":
 	with open("devices2.yaml") as f:
 		devices = yaml.safe_load(f)
 	for device in devices:
-		result = send_show_command(device, command)
+		result = send_config_commands(device, commands)
 		for line in result:
 			print(line)
+'''
+18:13 $ python task_19_2.py
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+csr1000v-1(config)#logging 10.255.255.1
+csr1000v-1(config)#logging buffered 20010
+csr1000v-1(config)#no logging console
+csr1000v-1(config)#end
+csr1000v-1#
+Connection to device timed-out: cisco_ios 192.168.100.2:22
+Connection to device timed-out: cisco_ios 192.168.100.3:22
+'''
