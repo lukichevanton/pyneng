@@ -159,21 +159,11 @@ if __name__ == "__main__":
             pass
         '''
 '''
-19:31 $ python task_19_2b.py
+20:34 $ python task_19_2b.py
 Подключаюсь к ios-xe-mgmt-latest.cisco.com...
 Команда "logging 0255.255.1" выполнилась с ошибкой "Invalid input detected at '^' marker." на устройстве ios-xe-mgmt-latest.cisco.com
 Команда "logging" выполнилась с ошибкой "Incomplete command." на устройстве ios-xe-mgmt-latest.cisco.com
 Команда "a" выполнилась с ошибкой "Ambiguous command:  "a"" на устройстве ios-xe-mgmt-latest.cisco.com
-Подключаюсь к 192.168.100.2...
-Connection to device timed-out: cisco_ios 192.168.100.2:22
-Подключаюсь к 192.168.100.3...
-Connection to device timed-out: cisco_ios 192.168.100.3:22
-
-19:31 $ python task_19_2b.py
-Команда "logging 0255.255.1" выполнилась с ошибкой "Invalid input detected at '^' marker." на устройстве ios-xe-mgmt-latest.cisco.com
-Команда "logging" выполнилась с ошибкой "Incomplete command." на устройстве ios-xe-mgmt-latest.cisco.com
-Команда "a" выполнилась с ошибкой "Ambiguous command:  "a"" на устройстве ios-xe-mgmt-latest.cisco.com
-
 ({'ip http server': 'config term\n'
                     'Enter configuration commands, one per line.  End with '
                     'CNTL/Z.\n'
@@ -208,9 +198,11 @@ Connection to device timed-out: cisco_ios 192.168.100.3:22
                         '\n'
                         'csr1000v-1(config)#end\n'
                         'csr1000v-1#'})
-
- dict_keys(['logging 0255.255.1', 'logging', 'a'])
-
+dict_keys(['logging 0255.255.1', 'logging', 'a'])
+Подключаюсь к 192.168.100.2...
+Connection to device timed-out: cisco_ios 192.168.100.2:22
+None
+Подключаюсь к 192.168.100.3...
+Connection to device timed-out: cisco_ios 192.168.100.3:22
+None
 '''
-
-
