@@ -46,7 +46,6 @@ In [12]: pprint(result)
                         "% Invalid input detected at '^' marker.\n"
                         '\n'
                         'R1(config)#'})
-
 """
 #!/usr/bin/env python3
 
@@ -75,13 +74,15 @@ def ignore_command(command, ignore):
     '''
     return any(word in command for word in ignore)
 
+#'log' контролирует будет ли выводится на стандартный поток вывода информация о том к какому устройству выполняется подключение
 def send_config_commands(device, config_commands, log=True):
 
     regex = re.compile(r'.*% (?P<error>.*)')
-    result_good = {}
-    result_bad = {}
+    result_good = {}#первый словарь с выводом команд, которые выполнились без ошибки
+    result_bad = {}#второй словарь с выводом команд, которые выполнились с ошибками
 
     try:
+    	#'log' контролирует будет ли выводится на стандартный поток вывода информация о том к какому устройству выполняется подключение
         if log:
             print('Подключаюсь к {}...'.format(device['host']))
         with ConnectHandler(**device) as ssh:
@@ -96,6 +97,7 @@ def send_config_commands(device, config_commands, log=True):
                         #Варианты ответа [y]/n:
                         errcom = input('Продолжать выполнять команды? [y]/n:')
                         #y - выполнять остальные команды. Это значение по умолчанию, поэтому нажатие любой комбинации воспринимается как y
+                        #второй словарь с выводом команд, которые выполнились с ошибками
                         if not errcom:
                         	result_bad[com] = output
                         elif 'y' in errcom:
@@ -106,9 +108,11 @@ def send_config_commands(device, config_commands, log=True):
                         elif 'n' or 'no' in errcom:
                         	pass
                 else:
+                	#первый словарь с выводом команд, которые выполнились без ошибки
                     result_good[com] = output
         return result_good, result_bad
     except (NetMikoAuthenticationException, NetMikoTimeoutException, socket.timeout) as error:
+        #'log' контролирует будет ли выводится на стандартный поток вывода информация о том к какому устройству выполняется подключение
         if log:
             print(error)
 

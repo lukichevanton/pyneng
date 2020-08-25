@@ -118,14 +118,16 @@ def ignore_command(command, ignore):
     * False - если нет
     '''
     return any(word in command for word in ignore)
-
+    
+#'log' контролирует будет ли выводится на стандартный поток вывода информация о том к какому устройству выполняется подключение
 def send_config_commands(device, config_commands, log=True):
 
     regex = re.compile(r'.*% (?P<error>.*)')
-    result_good = {}
-    result_bad = {}
+    result_good = {}#первый словарь с выводом команд, которые выполнились без ошибки
+    result_bad = {}#второй словарь с выводом команд, которые выполнились с ошибками
 
     try:
+        #'log' контролирует будет ли выводится на стандартный поток вывода информация о том к какому устройству выполняется подключение
         if log:
             print('Подключаюсь к {}...'.format(device['host']))
         with ConnectHandler(**device) as ssh:
@@ -135,13 +137,16 @@ def send_config_commands(device, config_commands, log=True):
                 if ignore_command(output, ignore):
                     final = regex.search(output)
                     if final:
+                        #второй словарь с выводом команд, которые выполнились с ошибками
                         error = final.group('error')
                         result_bad[com] = output
                         print('Команда "{}" выполнилась с ошибкой "{}" на устройстве {}'.format(com, error, device['host']))                
                 else:
+                    #первый словарь с выводом команд, которые выполнились без ошибки
                     result_good[com] = output
         return result_good, result_bad
     except (NetMikoAuthenticationException, NetMikoTimeoutException, socket.timeout) as error:
+        #'log' контролирует будет ли выводится на стандартный поток вывода информация о том к какому устройству выполняется подключение
         if log:
             print(error)
 

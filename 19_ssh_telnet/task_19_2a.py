@@ -28,9 +28,11 @@ from netmiko.ssh_exception import NetMikoAuthenticationException, NetMikoTimeout
 
 commands = ["logging 10.255.255.1", "logging buffered 20010", "no logging console"]
 
+#'log' контролирует будет ли выводится на стандартный поток вывода информация о том к какому устройству выполняется подключение
 def send_config_commands(device, config_commands, log=True):
 	result = []
 	try:
+		#'log' контролирует будет ли выводится на стандартный поток вывода информация о том к какому устройству выполняется подключение
 		if log:
 			print('Подключаюсь к {}...'.format(device['host']))
 		with ConnectHandler(**device) as ssh:
@@ -38,6 +40,7 @@ def send_config_commands(device, config_commands, log=True):
 			output = ssh.send_config_set(config_commands)
 			result.append(output)
 	except (NetMikoAuthenticationException, NetMikoTimeoutException, socket.timeout) as error:
+		#'log' контролирует будет ли выводится на стандартный поток вывода информация о том к какому устройству выполняется подключение
 		if log:
 			print(error)
 	return result
