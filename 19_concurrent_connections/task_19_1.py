@@ -26,6 +26,8 @@ IP-адресов с помощью concurrent.futures (это надо сдел
 
 #!/usr/bin/env python3
 
+'''1ый вариант'''
+
 from datetime import datetime
 import time
 from itertools import repeat
@@ -37,6 +39,58 @@ import yaml
 
 import subprocess
 
+logging.getLogger('paramiko').setLevel(logging.WARNING)
+
+logging.basicConfig(
+    format = '%(threadName)s %(name)s %(levelname)s: %(message)s',
+    level=logging.INFO)
+
+ip_list = ['8.8.8.8', '1.2.3.4', '1.1.1.1', '1.2.3.5']
+
+def ping_ip_addresses(ip):
+
+	start_msg = '===> {} Connection: {}'
+	received_msg = '<=== {} Received:   {}'
+
+	logging.info(start_msg.format(datetime.now().time(), ip))
+
+	reply = subprocess.run(['ping', '-c', '1', '-n', ip])
+
+	logging.info(received_msg.format(datetime.now().time(), ip))
+
+	return(reply)
+
+with ThreadPoolExecutor(max_workers=3) as executor:
+	result = executor.map(ping_ip_addresses, ip_list)
+
+	final = []
+	alive = []
+	unreachable = []
+		
+	for ip, output in zip(ip_list, result):
+		print(ip, output)
+		
+		if output.returncode == 0:                         
+			alive.append(ip)         
+		else:
+			unreachable.append(ip)
+	final.append(alive)
+	final.append(unreachable)
+	tuple_result = tuple(final)
+	print(tuple_result)
+
+'''2ой вариант'''
+'''
+from datetime import datetime
+import time
+from itertools import repeat
+from concurrent.futures import ThreadPoolExecutor
+import logging
+
+import netmiko
+import yaml
+
+import subprocess
 
 logging.getLogger('paramiko').setLevel(logging.WARNING)
 
@@ -73,7 +127,7 @@ with ThreadPoolExecutor(max_workers=3) as executor:
 	final.append(unreachable)
 	tuple_result = tuple(final)
 	print(tuple_result)
-
+'''
 '''
 (['8.8.8.8', '1.1.1.1'], ['1.2.3.4', '1.2.3.5'])
 '''
