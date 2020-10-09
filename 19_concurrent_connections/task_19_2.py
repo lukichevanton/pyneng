@@ -33,3 +33,56 @@ Ethernet0/1                unassigned      YES NVRAM  administratively down down
 
 Проверить работу функции на устройствах из файла devices.yaml
 """
+
+#!/usr/bin/env python3
+
+from datetime import datetime
+import time
+from itertools import repeat
+from concurrent.futures import ThreadPoolExecutor
+import logging
+
+import netmiko
+import yaml
+
+logging.getLogger('paramiko').setLevel(logging.WARNING)
+
+logging.basicConfig(
+    format = '%(threadName)s %(name)s %(levelname)s: %(message)s',
+    level=logging.INFO)
+
+def send_show_command_to_devices(device, command):
+    start_msg = '===> {} Connection: {}'
+    received_msg = '<=== {} Received:   {}'
+    ip = device['host']
+    logging.info(start_msg.format(datetime.now().time(), ip))
+
+    with netmiko.ConnectHandler(**device) as ssh:
+        ssh.enable()
+        result = ssh.send_command(strip_command=False, command_string=command)
+        logging.info(received_msg.format(datetime.now().time(), ip))
+        return result
+
+with open('devices2.yaml') as f:
+    devices = yaml.safe_load(f)
+
+with ThreadPoolExecutor(max_workers=3) as executor:
+    result = executor.map(send_show_command_to_devices, devices, repeat('sh ip int br'))
+    for device, output in zip(devices, result):
+        print(output)
+        f = open('show.txt', 'a')
+        f.write(device['host']+'#')
+        f.write(output)
+
+'''
+ios-xe-mgmt-latest.cisco.com#sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet1       10.10.20.48     YES NVRAM  up                    up      
+GigabitEthernet2       10.255.255.2    YES other  administratively down down    
+GigabitEthernet3       unassigned      YES NVRAM  administratively down down    
+Loopback2              unassigned      YES unset  up                    up      
+Loopback100            1.1.1.1         YES manual up                    up      
+Loopback109            172.16.100.1    YES other  up                    up      
+VirtualPortGroup0      172.16.0.1      YES manual up                    up      
+VirtualPortGroup2      192.168.35.1    YES manual up                    up      
+'''

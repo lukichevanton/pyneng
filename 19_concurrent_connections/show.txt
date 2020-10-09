@@ -1,0 +1,10 @@
+ios-xe-mgmt-latest.cisco.com#sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet1       10.10.20.48     YES NVRAM  up                    up      
+GigabitEthernet2       10.255.255.2    YES other  administratively down down    
+GigabitEthernet3       unassigned      YES NVRAM  administratively down down    
+Loopback2              unassigned      YES unset  up                    up      
+Loopback100            1.1.1.1         YES manual up                    up      
+Loopback109            172.16.100.1    YES other  up                    up      
+VirtualPortGroup0      172.16.0.1      YES manual up                    up      
+VirtualPortGroup2      192.168.35.1    YES manual up                    up      
