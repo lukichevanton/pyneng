@@ -51,11 +51,8 @@ def ping_ip_addresses(ip):
 
 	start_msg = '===> {} Connection: {}'
 	received_msg = '<=== {} Received:   {}'
-
 	logging.info(start_msg.format(datetime.now().time(), ip))
-
 	reply = subprocess.run(['ping', '-c', '1', '-n', ip])
-
 	logging.info(received_msg.format(datetime.now().time(), ip))
 
 	return(reply)
@@ -66,7 +63,7 @@ with ThreadPoolExecutor(max_workers=3) as executor:
 	final = []
 	alive = []
 	unreachable = []
-		
+
 	for ip, output in zip(ip_list, result):
 		print(ip, output)
 		
@@ -114,11 +111,14 @@ with open('devices.yaml') as f:
 
 with ThreadPoolExecutor(max_workers=3) as executor:
 	result = executor.map(ping_ip_addresses, devices)
+
 	final = []
 	alive = []
 	unreachable = []
+
 	for device, output in zip(devices, result):
 		print(device['host'], output)
+
 		if output.returncode == 0:                         
 			alive.append(device['host'])         
 		else:
