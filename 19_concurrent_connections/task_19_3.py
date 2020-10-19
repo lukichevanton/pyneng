@@ -87,3 +87,13 @@ with ThreadPoolExecutor(max_workers=3) as executor:
 		f = open('show.txt', 'a')
 		f.write('\n'+device['host']+'#')
 		f.write(output)
+'''
+ios-xe-mgmt.cisco.com#sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet1       10.10.20.48     YES NVRAM  up                    up      
+GigabitEthernet2       10.255.254.1    YES other  administratively down down    
+GigabitEthernet3       unassigned      YES NVRAM  administratively down down    
+Loopback99             9.9.9.9         YES manual up                    up      
+Loopback103            172.16.103.1    YES other  up                    up      
+Loopback1234           1.2.3.4         YES other  up                    up      
+'''
