@@ -71,7 +71,7 @@ with ThreadPoolExecutor(max_workers=3) as executor:
     for device, output in zip(devices, result):
         print(output)
         f = open('show.txt', 'a')
-        f.write(device['host']+'#')
+        f.write('\n'+device['host']+'#')
         f.write(output)
 
 '''
