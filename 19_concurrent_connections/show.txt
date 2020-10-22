@@ -1,23 +1,74 @@
-ios-xe-mgmt.cisco.com#sh ip int br
-Interface              IP-Address      OK? Method Status                Protocol
-GigabitEthernet1       10.10.20.48     YES NVRAM  up                    up      
-GigabitEthernet2       10.255.254.1    YES other  administratively down down    
+
+ios-xe-mgmt.cisco.com#
+ios-xe-mgmt.cisco.com#
+ios-xe-mgmt.cisco.com#
+ios-xe-mgmt.cisco.com#Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet1       10.10.20.48     YES other  up                    up      
+GigabitEthernet2       unassigned      YES NVRAM  administratively down down    
 GigabitEthernet3       unassigned      YES NVRAM  administratively down down    
-Loopback99             9.9.9.9         YES manual up                    up      
-Loopback103            172.16.103.1    YES other  up                    up      
-Loopback1234           1.2.3.4         YES other  up                    up      ios-xe-mgmt.cisco.com#sh ip int br
-Interface              IP-Address      OK? Method Status                Protocol
-GigabitEthernet1       10.10.20.48     YES NVRAM  up                    up      
-GigabitEthernet2       10.255.254.1    YES other  administratively down down    
-GigabitEthernet3       unassigned      YES NVRAM  administratively down down    
-Loopback99             9.9.9.9         YES manual up                    up      
-Loopback103            172.16.103.1    YES other  up                    up      
-Loopback1234           1.2.3.4         YES other  up                    up      
-ios-xe-mgmt.cisco.com#sh ip int br
-Interface              IP-Address      OK? Method Status                Protocol
-GigabitEthernet1       10.10.20.48     YES NVRAM  up                    up      
-GigabitEthernet2       10.255.254.1    YES other  administratively down down    
-GigabitEthernet3       unassigned      YES NVRAM  administratively down down    
-Loopback99             9.9.9.9         YES manual up                    up      
-Loopback103            172.16.103.1    YES other  up                    up      
-Loopback1234           1.2.3.4         YES other  up                    up      
+Loopback1              2.2.2.2         YES manual up                    up      
+Loopback2              unassigned      YES unset  up                    up      
+Loopback21             unassigned      YES unset  up                    up      
+Loopback998            172.16.250.1    YES other  up                    up      
+Loopback3333           3.3.3.3         YES other  up                    up      
+Loopback3334           3.3.3.4         YES other  up                    up      
+Loopback8675           99.8.7.6        YES other  up                    up      
+Loopback9765           192.168.1.234   YES other  up                    up      
+Loopback9999           9.8.7.6         YES other  up                    up      
+Loopback12319          1.2.3.19        YES other  up                    up      
+Loopback12564          1.2.55.159      YES other  up                    up      
+Loopback2894536        128.128.128.128 YES other  up                    up      
+Loopback12121212       1.3.5.7         YES other  up                    up      
+ios-xe-mgmt.cisco.com#r1000v#sh int d
+ios-xe-mgmt.cisco.com#Interface                      Status         Protocol Description
+Gi1                            up             up       MANAGEMENT INTERFACE - DON'T TOUCH ME
+Gi2                            admin down     down     Network Interface
+Gi3                            admin down     down     Network Interface
+Lo1                            up             up       WHATEVER
+Lo2                            up             up       NEWBUTSAMEIP
+Lo21                           up             up       
+Lo998                          up             up       Configured by Mike
+Lo3333                         up             up       Marek K.
+Lo3334                         up             up       Marek K.
+Lo8675                         up             up       Adrian
+Lo9765                         up             up       Marek
+Lo9999                         up             up       Lubo
+Lo12319                        up             up       Standynathor
+Lo12564                        up             up       Pavel
+Lo2894536                      up             up       ITS a ME MARIO
+Lo12121212                     up             up       Andrej
+ios-xe-mgmt.cisco.com#Interface                      Status         Protocol Description
+Gi1                            up             up       MANAGEMENT INTERFACE - DON'T TOUCH ME
+Gi2                            admin down     down     Network Interface
+Gi3                            admin down     down     Network Interface
+Lo1                            up             up       WHATEVER
+Lo2                            up             up       NEWBUTSAMEIP
+Lo21                           up             up       
+Lo998                          up             up       Configured by Mike
+Lo3333                         up             up       Marek K.
+Lo3334                         up             up       Marek K.
+Lo8675                         up             up       Adrian
+Lo9765                         up             up       Marek
+Lo9999                         up             up       Lubo
+Lo12319                        up             up       Standynathor
+Lo12564                        up             up       Pavel
+Lo2894536                      up             up       ITS a ME MARIO
+Lo12121212                     up             up       Andrej
+ios-xe-mgmt.cisco.com#sh int desc
+Interface                      Status         Protocol Description
+Gi1                            up             up       MANAGEMENT INTERFACE - DON'T TOUCH ME
+Gi2                            admin down     down     Network Interface
+Gi3                            admin down     down     Network Interface
+Lo1                            up             up       WHATEVER
+Lo2                            up             up       NEWBUTSAMEIP
+Lo21                           up             up       
+Lo998                          up             up       Configured by Mike
+Lo3333                         up             up       Marek K.
+Lo3334                         up             up       Marek K.
+Lo8675                         up             up       Adrian
+Lo9765                         up             up       Marek
+Lo9999                         up             up       Lubo
+Lo12319                        up             up       Standynathor
+Lo12564                        up             up       Pavel
+Lo2894536                      up             up       ITS a ME MARIO
+Lo12121212                     up             up       Andrej

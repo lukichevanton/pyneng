@@ -52,6 +52,50 @@ O        10.30.0.0/24 [110/20] via 192.168.100.1, 07:12:03, Ethernet0/0
 # тест берет адреса из файла devices.yaml
 commands = {
     "192.168.100.3": ["sh ip int br", "sh ip route | ex -"],
-    "192.168.100.1": ["sh ip int br", "sh int desc"],
-    "192.168.100.2": ["sh int desc"],
+    "ios-xe-mgmt.cisco.com": ["sh int desc", "sh ip int br"],
+    "192.168.100.2": ["sh int desc"]
 }
+
+from datetime import datetime
+import time
+from itertools import repeat
+from concurrent.futures import ThreadPoolExecutor
+import logging
+
+import netmiko
+import yaml
+
+logging.getLogger('paramiko').setLevel(logging.WARNING)
+
+logging.basicConfig(
+    format = '%(threadName)s %(name)s %(levelname)s: %(message)s',
+    level=logging.INFO)
+
+def send_show_command_to_devices(device, command):
+
+	start_msg = '===> {} Connection: {}'
+	received_msg = '<=== {} Received:   {}'
+	ip = device['host']
+	if commands.get(device['host']):
+		command = commands[device['host']]
+		for command in command:
+			
+			logging.info(start_msg.format(datetime.now().time(), ip))
+
+			with netmiko.ConnectHandler(**device) as ssh:
+				ssh.enable()
+				result = ssh.send_command(strip_command=False, command_string=command)
+				logging.info(received_msg.format(datetime.now().time(), ip))
+				return result
+
+with open('devices2.yaml') as f:
+	devices = yaml.safe_load(f)
+
+with ThreadPoolExecutor(max_workers=3) as executor:
+
+	result = executor.map(send_show_command_to_devices, devices, commands)
+	for device, output in zip(devices, result):
+		print(output)
+		f = open('show.txt', 'a')
+		f.write('\n'+device['host']+'#')
+		f.write(output)
