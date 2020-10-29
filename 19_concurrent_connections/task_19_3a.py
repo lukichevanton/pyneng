@@ -50,6 +50,7 @@ O        10.30.0.0/24 [110/20] via 192.168.100.1, 07:12:03, Ethernet0/0
 
 # Этот словарь нужен только для проверки работа кода, в нем можно менять IP-адреса
 # тест берет адреса из файла devices.yaml
+
 commands = {
     "192.168.100.3": ["sh ip int br", "sh ip route | ex -"],
     "ios-xe-mgmt.cisco.com": ["sh int desc", "sh ip int br"],
@@ -61,6 +62,7 @@ import time
 from itertools import repeat
 from concurrent.futures import ThreadPoolExecutor
 import logging
+from pprint import pprint
 
 import netmiko
 import yaml
@@ -72,30 +74,46 @@ logging.basicConfig(
     level=logging.INFO)
 
 def send_show_command_to_devices(device, command):
-
+	final = []
 	start_msg = '===> {} Connection: {}'
 	received_msg = '<=== {} Received:   {}'
 	ip = device['host']
 	if commands.get(device['host']):
 		command = commands[device['host']]
-		for command in command:
-			
-			logging.info(start_msg.format(datetime.now().time(), ip))
+	logging.info(start_msg.format(datetime.now().time(), ip))
 
-			with netmiko.ConnectHandler(**device) as ssh:
-				ssh.enable()
-				result = ssh.send_command(strip_command=False, command_string=command)
-				logging.info(received_msg.format(datetime.now().time(), ip))
-				return result
+	with netmiko.ConnectHandler(**device) as ssh:
+		ssh.enable()	
+		output1 = ssh.send_command(strip_command=False, command_string=command[0])
+		final.append(device['host']+'#'+output1+'\n')
+		output2 = ssh.send_command(strip_command=False, command_string=command[1])
+		final.append(device['host']+'#'+output2+'\n')
+		logging.info(received_msg.format(datetime.now().time(), ip))
+	return final
 
 with open('devices2.yaml') as f:
 	devices = yaml.safe_load(f)
 
 with ThreadPoolExecutor(max_workers=3) as executor:
-
 	result = executor.map(send_show_command_to_devices, devices, commands)
-	for device, output in zip(devices, result):
-		print(output)
+	for output in result:
+		pprint(output)
 		f = open('show.txt', 'a')
-		f.write('\n'+device['host']+'#')
-		f.write(output)
+		for line in output:
+			f.write(line)
+'''
+ios-xe-mgmt.cisco.com#sh int desc
+Interface                      Status         Protocol Description
+Gi1                            up             up       MANAGEMENT INTERFACE - DON'T TOUCH ME
+Gi2                            admin down     down     Network Interface
+Gi3                            admin down     down     Network Interface
+Lo15                           up             up       Added By KaussezPausies
+Lo100                          up             up       Added By KaussezPausies
+ios-xe-mgmt.cisco.com#sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet1       10.10.20.48     YES NVRAM  up                    up      
+GigabitEthernet2       unassigned      YES NVRAM  administratively down down    
+GigabitEthernet3       unassigned      YES NVRAM  administratively down down    
+Loopback15             unassigned      YES unset  up                    up      
+Loopback100            172.16.55.1     YES other  up                    up      
+'''
