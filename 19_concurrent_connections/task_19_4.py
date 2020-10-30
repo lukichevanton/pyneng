@@ -86,3 +86,55 @@ R3#
 
 Для выполнения задания можно создавать любые дополнительные функции.
 """
+
+from datetime import datetime
+import time
+from itertools import repeat
+from concurrent.futures import ThreadPoolExecutor
+import logging
+from pprint import pprint
+
+import netmiko
+import yaml
+
+logging.getLogger('paramiko').setLevel(logging.WARNING)
+
+logging.basicConfig(
+    format = '%(threadName)s %(name)s %(levelname)s: %(message)s',
+    level=logging.INFO)
+
+def send_show_command_to_devices(device, command, filename):
+	print(command)
+	final = []
+	start_msg = '===> {} Connection: {}'
+	received_msg = '<=== {} Received:   {}'
+	ip = device['host']
+	'''
+	if commands.get(device['host']):
+		command = commands[device['host']]
+	'''
+	logging.info(start_msg.format(datetime.now().time(), ip))
+
+	with netmiko.ConnectHandler(**device) as ssh:
+		ssh.enable()	
+		output = ssh.send_command(strip_command=False, command_string=command)
+		final.append(device['host']+'#'+output+'\n')
+		logging.info(received_msg.format(datetime.now().time(), ip))
+	for line in final:
+		f = open(filename, 'a')
+		for line in output:
+			f.write(line)
+	return final
+
+with open('devices2.yaml') as f:
+	devices = yaml.safe_load(f)
+
+with ThreadPoolExecutor(max_workers=3) as executor:
+	result = executor.map(send_show_command_to_devices, devices, 'sh clock', 'show.txt')
+	for output in result:
+		pprint(output)
+		'''
+		f = open('show.txt', 'a')
+		for line in output:
+			f.write(line)
+		'''

@@ -13,3 +13,6 @@ GigabitEthernet2       unassigned      YES NVRAM  administratively down down
 GigabitEthernet3       unassigned      YES NVRAM  administratively down down    
 Loopback15             unassigned      YES unset  up                    up      
 Loopback100            172.16.55.1     YES other  up                    up      
+s
+% Type "show ?" for a list of subcommandss
+% Type "show ?" for a list of subcommands
