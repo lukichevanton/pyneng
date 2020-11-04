@@ -103,38 +103,54 @@ logging.basicConfig(
     format = '%(threadName)s %(name)s %(levelname)s: %(message)s',
     level=logging.INFO)
 
-def send_show_command_to_devices(device, command, filename):
-	print(command)
-	final = []
-	start_msg = '===> {} Connection: {}'
-	received_msg = '<=== {} Received:   {}'
-	ip = device['host']
-	'''
-	if commands.get(device['host']):
-		command = commands[device['host']]
-	'''
-	logging.info(start_msg.format(datetime.now().time(), ip))
+def send_commands_to_devices(device, filename, show=None, config=None):
+	for device in devices:
+		device = device
 
-	with netmiko.ConnectHandler(**device) as ssh:
-		ssh.enable()	
-		output = ssh.send_command(strip_command=False, command_string=command)
-		final.append(device['host']+'#'+output+'\n')
-		logging.info(received_msg.format(datetime.now().time(), ip))
-	for line in final:
-		f = open(filename, 'a')
-		for line in output:
-			f.write(line)
-	return final
+		final = []
+		start_msg = '===> {} Connection: {}'
+		received_msg = '<=== {} Received:   {}'
+		ip = device['host']
+
+		logging.info(start_msg.format(datetime.now().time(), ip))
+
+		with netmiko.ConnectHandler(**device) as ssh:
+			ssh.enable()
+			if show != None:
+				output = ssh.send_command(strip_command=False, command_string=show)
+				final.append('\n'+device['host']+'#'+output)
+			elif config != None:
+				output = ssh.send_config_set(config)
+				final.append('\n'+device['host']+'#'+'\n'+output)
+			logging.info(received_msg.format(datetime.now().time(), ip))
+		with open(filename, 'a') as f:
+			for line in final:
+				f.write(line)
+		return final
 
 with open('devices2.yaml') as f:
 	devices = yaml.safe_load(f)
 
 with ThreadPoolExecutor(max_workers=3) as executor:
-	result = executor.map(send_show_command_to_devices, devices, 'sh clock', 'show.txt')
+	result = send_commands_to_devices(devices, show='sh clock', filename='result.txt')
+	#result = send_commands_to_devices(devices, config='logging 10.5.5.5', filename='result.txt')
+	#result = send_commands_to_devices(devices, config=['router ospf 55', 'network 0.0.0.0 255.255.255.255 area 0'], filename='result.txt')
 	for output in result:
 		pprint(output)
-		'''
-		f = open('show.txt', 'a')
-		for line in output:
-			f.write(line)
-		'''
+'''
+ios-xe-mgmt.cisco.com#sh clock
+*20:02:04.955 UTC Wed Nov 4 2020
+ios-xe-mgmt.cisco.com#
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+csr1000v(config)#logging 10.5.5.5
+csr1000v(config)#end
+csr1000v#
+ios-xe-mgmt.cisco.com#
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+csr1000v(config)#router ospf 55
+csr1000v(config-router)#network 0.0.0.0 255.255.255.255 area 0
+csr1000v(config-router)#end
+csr1000v#
+'''

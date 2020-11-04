@@ -1,0 +1,16 @@
+
+ios-xe-mgmt.cisco.com#sh clock
+*20:02:04.955 UTC Wed Nov 4 2020
+ios-xe-mgmt.cisco.com#
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+csr1000v(config)#logging 10.5.5.5
+csr1000v(config)#end
+csr1000v#
+ios-xe-mgmt.cisco.com#
+config term
+Enter configuration commands, one per line.  End with CNTL/Z.
+csr1000v(config)#router ospf 55
+csr1000v(config-router)#network 0.0.0.0 255.255.255.255 area 0
+csr1000v(config-router)#end
+csr1000v#
