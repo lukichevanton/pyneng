@@ -76,7 +76,7 @@ def send_show_command_to_devices(device, command):
 		logging.info(received_msg.format(datetime.now().time(), ip))
 		return result
 
-with open('devices2.yaml') as f:
+with open('test_devices.yaml') as f:
 	devices = yaml.safe_load(f)
 
 with ThreadPoolExecutor(max_workers=3) as executor:
