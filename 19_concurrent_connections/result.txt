@@ -1,6 +1,6 @@
 
 ios-xe-mgmt.cisco.com#sh clock
-*20:02:04.955 UTC Wed Nov 4 2020
+*19:54:51.618 UTC Mon Nov 9 2020
 ios-xe-mgmt.cisco.com#
 config term
 Enter configuration commands, one per line.  End with CNTL/Z.

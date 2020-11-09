@@ -89,10 +89,8 @@ R3#
 
 from datetime import datetime
 import time
-from itertools import repeat
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import logging
-from pprint import pprint
 
 import netmiko
 import yaml
@@ -104,39 +102,43 @@ logging.basicConfig(
     level=logging.INFO)
 
 def send_commands_to_devices(device, filename, show=None, config=None):
-	for device in devices:
-		device = device
 
-		final = []
-		start_msg = '===> {} Connection: {}'
-		received_msg = '<=== {} Received:   {}'
-		ip = device['host']
+	final = []
+	start_msg = '===> {} Connection: {}'
+	received_msg = '<=== {} Received:   {}'
+	ip = device['host']
 
-		logging.info(start_msg.format(datetime.now().time(), ip))
+	logging.info(start_msg.format(datetime.now().time(), ip))
 
-		with netmiko.ConnectHandler(**device) as ssh:
-			ssh.enable()
-			if show != None:
-				output = ssh.send_command(strip_command=False, command_string=show)
-				final.append('\n'+device['host']+'#'+output)
-			elif config != None:
-				output = ssh.send_config_set(config)
-				final.append('\n'+device['host']+'#'+'\n'+output)
-			logging.info(received_msg.format(datetime.now().time(), ip))
-		with open(filename, 'a') as f:
-			for line in final:
-				f.write(line)
-		return final
+	with netmiko.ConnectHandler(**device) as ssh:
+		ssh.enable()
+		if show != None:
+			output = ssh.send_command(strip_command=False, command_string=show)
+			final.append('\n'+device['host']+'#'+output)
+		elif config != None:
+			output = ssh.send_config_set(config)
+			final.append('\n'+device['host']+'#'+'\n'+output)
+		logging.info(received_msg.format(datetime.now().time(), ip))
+	with open(filename, 'a') as f:
+		for line in final:
+			f.write(line)
+	return final
 
 with open('devices2.yaml') as f:
 	devices = yaml.safe_load(f)
 
 with ThreadPoolExecutor(max_workers=3) as executor:
-	result = send_commands_to_devices(devices, show='sh clock', filename='result.txt')
-	#result = send_commands_to_devices(devices, config='logging 10.5.5.5', filename='result.txt')
-	#result = send_commands_to_devices(devices, config=['router ospf 55', 'network 0.0.0.0 255.255.255.255 area 0'], filename='result.txt')
-	for output in result:
-		pprint(output)
+	future_list = []
+	for device in devices:
+		future = executor.submit(send_commands_to_devices, device, show='sh clock', filename='result.txt')
+		#future = executor.submit(send_commands_to_devices, device, config='logging 10.5.5.5', filename='result.txt')
+		#future = executor.submit(send_commands_to_devices, device, config=['router ospf 55', 'network 0.0.0.0 255.255.255.255 area 0'], filename='result.txt')
+		future_list.append(future)
+	# то же самое в виде list comprehensions:
+	# future_list = [executor.submit(send_show, device, 'sh clock') for device in devices]
+	for f in as_completed(future_list):
+		for f in f.result():
+			print(f)
 '''
 ios-xe-mgmt.cisco.com#sh clock
 *20:02:04.955 UTC Wed Nov 4 2020

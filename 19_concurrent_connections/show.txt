@@ -1,0 +1,94 @@
+ios-xe-mgmt.cisco.com#sh int desc
+Interface                      Status         Protocol Description
+Gi1                            up             up       MANAGEMENT INTERFACE - DON'T TOUCH ME
+Gi2                            up             up       Configured by NETCONF
+Gi3                            admin down     down     Network Interface
+Lo7                            up             up       
+Lo10                           up             up       Configured by Harold using NETCONF
+Lo11                           up             up       
+Lo13                           up             up       
+Lo20                           up             up       
+Lo21                           up             up       
+Lo22                           up             up       
+Lo40                           up             up       Configured by Me
+Lo41                           up             up       Added with RESTCONF1
+Lo50                           up             up       
+Lo55                           up             up       
+Lo56                           up             up       
+Lo90                           up             up       
+Lo91                           up             up       
+Lo92                           up             up       
+Lo93                           up             up       
+Lo94                           up             up       
+Lo95                           up             up       
+Lo96                           up             up       
+Lo97                           up             up       
+Lo98                           up             up       
+Lo99                           up             up       confip
+Lo100                          up             up       
+Lo103                          up             up       Demo interface by CLI and netmiko
+Lo144                          up             up       Configured by Lester via Postman 144 
+Lo150                          up             up       loopDescription150
+Lo151                          up             up       loopDescription151
+Lo152                          up             up       loopDescription152
+Lo153                          up             up       loopDescription153
+Lo154                          up             up       loopDescription154
+Lo155                          up             up       Configured by Lester via Netconf
+Lo156                          up             up       loopDescription156
+Lo157                          up             up       loopDescription157
+Lo158                          up             up       Configured by Klay using NETCONF
+Lo159                          up             up       loopDescription158
+Lo161                          up             up       loopDescription158
+Lo162                          up             up       Configured by VR using NETCONF
+Lo200                          up             up       loopDescription200
+Lo201                          up             up       loopDescription201
+Lo300                          up             up       Configured by Klay using RESTCONF
+Lo400                          up             up       Configured by Harold
+Lo6969                         up             up       Ambot sa Imo
+ios-xe-mgmt.cisco.com#sh ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet1       10.10.20.48     YES other  up                    up      
+GigabitEthernet2       1.1.1.1         YES other  up                    up      
+GigabitEthernet3       unassigned      YES NVRAM  administratively down down    
+Loopback7              unassigned      YES unset  up                    up      
+Loopback10             192.168.10.1    YES other  up                    up      
+Loopback11             192.168.11.1    YES other  up                    up      
+Loopback13             192.168.13.1    YES other  up                    up      
+Loopback20             20.0.0.1        YES other  up                    up      
+Loopback21             21.0.0.1        YES other  up                    up      
+Loopback22             22.0.0.1        YES other  up                    up      
+Loopback40             172.16.10.1     YES other  up                    up      
+Loopback41             172.16.100.1    YES other  up                    up      
+Loopback50             unassigned      YES unset  up                    up      
+Loopback55             unassigned      YES unset  up                    up      
+Loopback56             192.168.1.1     YES other  up                    up      
+Loopback90             192.168.90.1    YES other  up                    up      
+Loopback91             192.168.91.1    YES other  up                    up      
+Loopback92             192.168.92.1    YES other  up                    up      
+Loopback93             192.168.93.1    YES other  up                    up      
+Loopback94             192.168.94.1    YES other  up                    up      
+Loopback95             192.168.95.1    YES other  up                    up      
+Loopback96             192.168.96.1    YES other  up                    up      
+Loopback97             192.168.97.1    YES other  up                    up      
+Loopback98             192.168.98.1    YES other  up                    up      
+Loopback99             unassigned      YES unset  up                    up      
+Loopback100            192.168.100.100 YES other  up                    up      
+Loopback103            192.168.103.1   YES other  up                    up      
+Loopback144            192.168.144.1   YES other  up                    up      
+Loopback150            192.168.150.1   YES other  up                    up      
+Loopback151            192.168.151.1   YES other  up                    up      
+Loopback152            192.168.152.1   YES other  up                    up      
+Loopback153            192.168.153.1   YES other  up                    up      
+Loopback154            192.168.154.1   YES other  up                    up      
+Loopback155            192.168.155.1   YES other  up                    up      
+Loopback156            192.168.156.1   YES other  up                    up      
+Loopback157            192.168.157.1   YES other  up                    up      
+Loopback158            192.168.158.1   YES other  up                    up      
+Loopback159            192.168.159.1   YES other  up                    up      
+Loopback161            192.168.161.1   YES other  up                    up      
+Loopback162            192.168.162.1   YES other  up                    up      
+Loopback200            192.168.200.1   YES other  up                    up      
+Loopback201            192.168.201.1   YES other  up                    up      
+Loopback300            192.200.200.1   YES other  up                    up      
+Loopback400            192.16.10.1     YES other  up                    up      
+Loopback6969           6.9.6.9         YES other  up                    up      
