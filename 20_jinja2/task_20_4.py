@@ -29,3 +29,26 @@ interface Gi0/10
 Не копируйте код функции generate_config.
 
 """
+import yaml
+from jinja2 import Environment, FileSystemLoader
+from task_20_1 import *
+
+# так должен выглядеть вызов функции
+if __name__ == "__main__":
+    data_file = "data_files/add_vlan_to_switch.yaml"
+    template_file = "templates/add_vlan_to_switch.txt"
+    with open(data_file) as f:
+        data = yaml.safe_load(f)
+    print(generate_config(template_file, data))
+'''
+      $ python task_20_4.py 
+vlan 10
+ name Marketing
+interface Fa0/1
+ switchport mode access
+ switchport access vlan 10
+interface Fa0/23
+ switchport trunk allowed vlan add 10
+interface Fa0/24
+ switchport trunk allowed vlan add 10
+'''

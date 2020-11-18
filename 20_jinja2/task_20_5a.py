@@ -34,3 +34,58 @@ data = {
     "tun_ip_1": "10.0.1.1 255.255.255.252",
     "tun_ip_2": "10.0.1.2 255.255.255.252",
 }
+
+import yaml
+from jinja2 import Environment, FileSystemLoader
+import socket
+from netmiko import ConnectHandler
+from netmiko.ssh_exception import NetMikoAuthenticationException, NetMikoTimeoutException
+
+def configure_vpn(src_device_params, dst_device_params, src_template, dst_template, vpn_data_dict):
+	src_template = src_template.split('/')
+	env = Environment(loader=FileSystemLoader(src_template[0]))
+	src_template = env.get_template(src_template[1])
+	src_template = src_template.render(vpn_data_dict)
+
+	dst_template = dst_template.split('/')
+	env = Environment(loader=FileSystemLoader(dst_template[0]))
+	dst_template = env.get_template(dst_template[1])
+	dst_template = dst_template.render(vpn_data_dict)
+
+	#return (src_template.render(vpn_data_dict), dst_template.render(vpn_data_dict))
+
+	result = []
+	try:
+		with ConnectHandler(**src_device_params) as ssh:
+			ssh.enable()
+			output = ssh.send_config_set(src_template)
+			result.append(output)
+	except (NetMikoAuthenticationException, NetMikoTimeoutException, socket.timeout) as error:
+		print(error)
+
+	try:
+		with ConnectHandler(**dst_device_params) as ssh:
+			ssh.enable()
+			output = ssh.send_config_set(dst_template)
+			result.append(output)
+	except (NetMikoAuthenticationException, NetMikoTimeoutException, socket.timeout) as error:
+		print(error)
+
+	return result
+		
+
+# так должен выглядеть вызов функции
+if __name__ == "__main__":
+
+	src_template = "templates/gre_ipsec_vpn_1.txt"
+	dst_template = "templates/gre_ipsec_vpn_2.txt"
+
+	with open("src_device_params.yaml") as f:
+		devices = yaml.safe_load(f)
+		for src_device_params in devices:
+	#with open("dst_device_params.yaml") as f:
+	#	dst_device_params = yaml.safe_load(f)
+	
+			result = configure_vpn(src_device_params, dst_device_params, src_template, dst_template, data)
+			for line in result:
+				print(line)
