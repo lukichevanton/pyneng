@@ -26,6 +26,11 @@
 
 Для этого задания нет теста!
 """
+import yaml
+from jinja2 import Environment, FileSystemLoader
+import socket
+from netmiko import ConnectHandler
+from netmiko.ssh_exception import NetMikoAuthenticationException, NetMikoTimeoutException
 
 data = {
     "tun_num": None,
@@ -35,13 +40,23 @@ data = {
     "tun_ip_2": "10.0.1.2 255.255.255.252",
 }
 
-import yaml
-from jinja2 import Environment, FileSystemLoader
-import socket
-from netmiko import ConnectHandler
-from netmiko.ssh_exception import NetMikoAuthenticationException, NetMikoTimeoutException
+src_device_params = {'device_type': 'cisco_ios',
+                'ip': '192.168.100.1',
+                'username': 'user',
+                'password': 'userpass',
+                'secret': 'enablepass',
+                'port': 22,
+                 }
+dst_device_params = {'device_type': 'cisco_ios',
+                'ip': '192.168.100.2',
+                'username': 'user',
+                'password': 'userpass',
+                'secret': 'enablepass',
+                'port': 22,
+                 }
 
 def configure_vpn(src_device_params, dst_device_params, src_template, dst_template, vpn_data_dict):
+	
 	src_template = src_template.split('/')
 	env = Environment(loader=FileSystemLoader(src_template[0]))
 	src_template = env.get_template(src_template[1])
@@ -51,8 +66,6 @@ def configure_vpn(src_device_params, dst_device_params, src_template, dst_templa
 	env = Environment(loader=FileSystemLoader(dst_template[0]))
 	dst_template = env.get_template(dst_template[1])
 	dst_template = dst_template.render(vpn_data_dict)
-
-	#return (src_template.render(vpn_data_dict), dst_template.render(vpn_data_dict))
 
 	result = []
 	try:
@@ -73,19 +86,12 @@ def configure_vpn(src_device_params, dst_device_params, src_template, dst_templa
 
 	return result
 		
-
 # так должен выглядеть вызов функции
 if __name__ == "__main__":
 
 	src_template = "templates/gre_ipsec_vpn_1.txt"
 	dst_template = "templates/gre_ipsec_vpn_2.txt"
-
-	with open("src_device_params.yaml") as f:
-		devices = yaml.safe_load(f)
-		for src_device_params in devices:
-	#with open("dst_device_params.yaml") as f:
-	#	dst_device_params = yaml.safe_load(f)
 	
-			result = configure_vpn(src_device_params, dst_device_params, src_template, dst_template, data)
-			for line in result:
-				print(line)
+	result = configure_vpn(src_device_params, dst_device_params, src_template, dst_template, data)
+	for line in result:
+		print(line)
