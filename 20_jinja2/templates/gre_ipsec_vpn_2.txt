@@ -12,7 +12,7 @@ crypto ipsec transform-set AESSHA esp-aes esp-sha-hmac
 crypto ipsec profile GRE
  set transform-set AESSHA
 
-interface Tunnel 10
+interface Tunnel {{ tun_num }}
  ip address {{ tun_ip_1 }}
  tunnel source {{ wan_ip_2 }}
  tunnel destination 1{{ wan_ip_1 }}
