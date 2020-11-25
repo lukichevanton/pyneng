@@ -19,13 +19,16 @@ from tabulate import tabulate
 from pprint import pprint
 
 def parse_command_output(template, command_output):
-	with open(template) as template:
-		fsm = textfsm.TextFSM(template)
-		result = fsm.ParseText(command_output)
-
-	pprint(fsm.header)
-	pprint(result)
-	print(tabulate(result, headers = fsm.header))
+  final = []
+  with open(template) as template:
+    fsm = textfsm.TextFSM(template)
+    result = fsm.ParseText(command_output)
+    final.append(fsm.header)
+    for result in result:
+      final.append(result)
+  return final
+  #pprint(fsm.header)
+  #pprint(result)
 
 # вызов функции должен выглядеть так
 if __name__ == "__main__":
@@ -41,14 +44,15 @@ if __name__ == "__main__":
         r1.enable()
         output = r1.send_command("sh ip int br")
     result = parse_command_output("templates/sh_ip_int_br.template", output)
-    print(result)
+    pprint(result)
 '''
       $ python task_21_1.py 
-['intf', 'address', 'status', 'protocol']
-[['GigabitEthernet1', '10.10.20.48', 'up', 'up'],
+[['intf', 'address', 'status', 'protocol'],
+ ['GigabitEthernet1', '10.10.20.48', 'up', 'up'],
  ['GigabitEthernet2', 'unassigned', 'administratively down', 'down'],
  ['GigabitEthernet3', 'unassigned', 'administratively down', 'down'],
- ['Loopback1', '1.1.1.1', 'up', 'up'],
+ ['Loopback1', '160.1.1.255', 'up', 'up'],
+ ['Loopback2', 'unassigned', 'up', 'up'],
  ['Loopback2244', 'unassigned', 'up', 'up'],
  ['Loopback5555', '5.5.5.5', 'up', 'up'],
  ['Loopback6666', '6.6.6.6', 'up', 'up'],
