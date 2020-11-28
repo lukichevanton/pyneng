@@ -29,12 +29,11 @@ attributes = {
 	'Vendor': 'Cisco',
 }
 
-def parse_command_dynamic(command_output, attributes_dict, index_file, templ_path):
+def parse_command_dynamic(command_output, attributes_dict, index_file='index', templ_path='templates'):
 
 	output = open(command_output).read()
 	cli_table = clitable.CliTable(index_file, templ_path)
-	cli_table.ParseCmd(command_output, attributes_dict)
-	cli_table.ParseCmd(output, attributes)
+	cli_table.ParseCmd(output, attributes_dict)
 	header = list(cli_table.header)
 
 	data_rows = [list(row) for row in cli_table]
@@ -77,3 +76,4 @@ pprint(result)
   'intf': 'Loopback100',
   'protocol': 'up',
   'status': 'up'}]
+'''
