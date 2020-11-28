@@ -4,16 +4,3 @@
   password: C1sco12345
   secret: C1sco12345
   port: 8181
-  timeout: 5
-- device_type: cisco_ios
-  host: 192.168.100.2
-  username: cisco
-  password: cisco
-  secret: cisco
-  timeout: 5
-- device_type: cisco_ios
-  host: 192.168.100.3
-  username: cisco
-  password: cisco
-  secret: cisco
-  timeout: 5
