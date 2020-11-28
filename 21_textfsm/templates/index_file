@@ -1,0 +1,6 @@
+Template, Command
+sh_cdp_n_det.template, sh[[ow]] cdp ne[[ighbors]] de[[tail]]
+sh_clock.template, sh[[ow]] clo[[ck]]
+sh_ip_int_br.template, sh[[ow]] ip int[[erface]] br[[ief]]
+sh_ip_route_ospf.template, sh[[ow]] ip rou[[te]] o[[spf]]
+sh_version.template, sh[[ow]] ver[[sion]]

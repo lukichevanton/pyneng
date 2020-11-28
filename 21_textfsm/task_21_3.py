@@ -22,35 +22,58 @@ from netmiko import ConnectHandler
 import textfsm
 from tabulate import tabulate
 from pprint import pprint
+from textfsm import clitable
 
-def parse_command_output(template, command_output):
+attributes = {
+	'Command': 'show ip interface brief',
+	'Vendor': 'Cisco',
+}
+
+def parse_command_dynamic(command_output, attributes_dict, index_file, templ_path):
+
+	output = open(command_output).read()
+	cli_table = clitable.CliTable(index_file, templ_path)
+	cli_table.ParseCmd(command_output, attributes_dict)
+	cli_table.ParseCmd(output, attributes)
+	header = list(cli_table.header)
+
+	data_rows = [list(row) for row in cli_table]
+	header = list(cli_table.header)
+
 	final = []
-	with open(template) as template:
-		fsm = textfsm.TextFSM(template)
-		result = fsm.ParseText(command_output)
-		intf, address, status, protocol = fsm.header
-		for line in result:
-			final2 = {}
-			intf1, address1, status1, protocol1 = line
-			final2[intf] = intf1
-			final2[address] = address1
-			final2[status] = status1
-			final2[protocol] = protocol1
-			final.append(final2)
+	intf, address, status, protocol = header
+	for row in data_rows:
+		final2 = {}
+		intf1, address1, status1, protocol1 = row
+		final2[intf] = intf1
+		final2[address] = address1
+		final2[status] = status1
+		final2[protocol] = protocol1
+		final.append(final2)
 	return final
-
-# вызов функции должен выглядеть так
-if __name__ == "__main__":
-    r1_params = {
-        "device_type": "cisco_ios",
-        "host": "ios-xe-mgmt.cisco.com",
-        "username": "developer",
-        "password": "C1sco12345",
-        "secret": "C1sco12345",
-        "port": "8181",
-    }
-    with ConnectHandler(**r1_params) as r1:
-        r1.enable()
-        output = r1.send_command("sh ip int br")
-    result = parse_command_output("templates/sh_ip_int_br.template", output)
-    pprint(result)
+	
+result = parse_command_dynamic('output/sh_ip_int_br.txt', attributes, 'index_file', 'templates')
+pprint(result)
+'''
+      $ python task_21_3.py 
+[{'address': '15.0.15.1',
+  'intf': 'FastEthernet0/0',
+  'protocol': 'up',
+  'status': 'up'},
+ {'address': '10.0.12.1',
+  'intf': 'FastEthernet0/1',
+  'protocol': 'up',
+  'status': 'up'},
+ {'address': '10.0.13.1',
+  'intf': 'FastEthernet0/2',
+  'protocol': 'up',
+  'status': 'up'},
+ {'address': 'unassigned',
+  'intf': 'FastEthernet0/3',
+  'protocol': 'up',
+  'status': 'up'},
+ {'address': '10.1.1.1', 'intf': 'Loopback0', 'protocol': 'up', 'status': 'up'},
+ {'address': '100.0.0.1',
+  'intf': 'Loopback100',
+  'protocol': 'up',
+  'status': 'up'}]
