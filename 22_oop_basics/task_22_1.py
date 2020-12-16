@@ -43,7 +43,7 @@ topology_example = {
 from pprint import pprint
 
 class Topology:
-	def topology(self):
+	def topol(self):
 
 		local_remote2 = {} 
 		key_value = []#список нужен для поиска дублированных значений в словаре
@@ -56,7 +56,8 @@ class Topology:
 
 top = Topology()
 top.topology_dict = topology_example
-top.topology()
+top.topol()
+
 '''
       $ python task_22_1.py 
 {('R1', 'Eth0/0'): ('SW1', 'Eth0/1'),
